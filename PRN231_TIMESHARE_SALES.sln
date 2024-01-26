@@ -1,0 +1,49 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.3.32901.215
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN231_TIMESHARE_SALES_DAO", "PRN231_TIMESHARE_SALES_DAO\PRN231_TIMESHARE_SALES_DAO.csproj", "{EC2780A7-CD1C-41CC-9228-862B1AC62BE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN231_TIMESHARE_SALES_DataLayer", "PRN231_TIMESHARE_SALES_DataLayer\PRN231_TIMESHARE_SALES_DataLayer.csproj", "{F00BD3AE-64E4-49CC-BD48-BA5C5A055381}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN231_TIMESHARE_SALES_Repository", "PRN231_TIMESHARE_SALES_Repository\PRN231_TIMESHARE_SALES_Repository.csproj", "{371D3116-40EA-4063-A80D-1BABEACF5A44}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN231_TIMESHARE_SALES_API", "PRN231_TIMESHARE_SALES_API\PRN231_TIMESHARE_SALES_API.csproj", "{5FAD6CBA-C951-46D4-B041-E23979B478AC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PRN231_TIMESHARE_SALES_BusinessLayer", "PRN231_TIMESHARE_SALES_BusinessLayer\PRN231_TIMESHARE_SALES_BusinessLayer.csproj", "{692E73A4-C507-40B4-A731-7EEC29A3CF61}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EC2780A7-CD1C-41CC-9228-862B1AC62BE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EC2780A7-CD1C-41CC-9228-862B1AC62BE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EC2780A7-CD1C-41CC-9228-862B1AC62BE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EC2780A7-CD1C-41CC-9228-862B1AC62BE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F00BD3AE-64E4-49CC-BD48-BA5C5A055381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F00BD3AE-64E4-49CC-BD48-BA5C5A055381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F00BD3AE-64E4-49CC-BD48-BA5C5A055381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F00BD3AE-64E4-49CC-BD48-BA5C5A055381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{371D3116-40EA-4063-A80D-1BABEACF5A44}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{371D3116-40EA-4063-A80D-1BABEACF5A44}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{371D3116-40EA-4063-A80D-1BABEACF5A44}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{371D3116-40EA-4063-A80D-1BABEACF5A44}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5FAD6CBA-C951-46D4-B041-E23979B478AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FAD6CBA-C951-46D4-B041-E23979B478AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5FAD6CBA-C951-46D4-B041-E23979B478AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5FAD6CBA-C951-46D4-B041-E23979B478AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{692E73A4-C507-40B4-A731-7EEC29A3CF61}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{692E73A4-C507-40B4-A731-7EEC29A3CF61}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{692E73A4-C507-40B4-A731-7EEC29A3CF61}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{692E73A4-C507-40B4-A731-7EEC29A3CF61}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63486C03-98C7-46FB-A220-7FF0232C89BF}
+	EndGlobalSection
+EndGlobal
