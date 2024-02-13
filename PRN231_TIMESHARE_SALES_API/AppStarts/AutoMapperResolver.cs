@@ -14,6 +14,12 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             CreateMap<Project, ProjectRequestModel>().ReverseMap();
             CreateMap<ProjectRequestModel, ProjectViewModel>().ReverseMap();
             #endregion
+
+            #region UsageHistory
+            CreateMap<UsageHistory, UsageHistoryViewModel>().ReverseMap();
+            CreateMap<UsageHistory, UsageHistoryRequestModel>().ReverseMap();
+            CreateMap<UsageHistoryRequestModel, UsageHistoryViewModel>().ReverseMap();
+            #endregion
         }
     }
 }
