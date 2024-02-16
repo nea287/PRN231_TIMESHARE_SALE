@@ -34,23 +34,25 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             UsageHistory result = new UsageHistory();
             try
             {
-
-                if(_usageRepository.Any(x => 
-                    x.CustomerId == request.CustomerId 
-                    && x.DepartmentId == request.DepartmentId
-                    && x.Status != 0))
+                lock (_usageRepository)
                 {
-                    return new ResponseResult<UsageHistoryViewModel>()
+                    if (_usageRepository.Any(x =>
+                        x.CustomerId == request.CustomerId
+                        && x.DepartmentId == request.DepartmentId
+                        && x.Status != 0))
                     {
-                        Message = Constraints.INFORMATION_EXISTED,
-                        result = false,
-                    };
+                        return new ResponseResult<UsageHistoryViewModel>()
+                        {
+                            Message = Constraints.INFORMATION_EXISTED,
+                            result = false,
+                        };
+                    }
+
+                    result = _mapper.Map<UsageHistory>(request);
+
+                    _usageRepository.Insert(result);
+                    _usageRepository.SaveChages();
                 }
-
-                result = _mapper.Map<UsageHistory>(request);
-
-                _usageRepository.Insert(result);
-                _usageRepository.SaveChages();
 
             }catch(Exception ex)
             {
@@ -76,20 +78,23 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         {
             try
             {
-                var data = _usageRepository.GetById(id).Result;
-                if(data == null)
+                lock(_usageRepository)
                 {
-                    return new ResponseResult<UsageHistoryViewModel>()
+                    var data = _usageRepository.GetById(id).Result;
+                    if (data == null)
                     {
-                        Message = Constraints.NOT_FOUND,
-                        result = false
-                    };
+                        return new ResponseResult<UsageHistoryViewModel>()
+                        {
+                            Message = Constraints.NOT_FOUND,
+                            result = false
+                        };
+                    }
+
+                    data.Status = 0;
+
+                    _usageRepository.UpdateById(data, id);
+                    _usageRepository.SaveChages();
                 }
-
-                data.Status = 0;
-
-                _usageRepository.UpdateById(data, id);
-                _usageRepository.SaveChages();
 
             }catch(Exception ex)
             {
@@ -111,22 +116,24 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         {
             try
             {
-                var data = _usageRepository.GetFirstOrDefault(x => x.CustomerId == customerId 
-                    && x.DepartmentId == depId && x.Status != 0);
-                if (data == null)
+                lock (_usageRepository)
                 {
-                    return new ResponseResult<UsageHistoryViewModel>()
+                    var data = _usageRepository.GetFirstOrDefault(x => x.CustomerId == customerId
+                        && x.DepartmentId == depId && x.Status != 0);
+                    if (data == null)
                     {
-                        Message = Constraints.NOT_FOUND,
-                        result = false
-                    };
+                        return new ResponseResult<UsageHistoryViewModel>()
+                        {
+                            Message = Constraints.NOT_FOUND,
+                            result = false
+                        };
+                    }
+
+                    data.Status = 0;
+
+                    _usageRepository.UpdateById(data, data.UsageId);
+                    _usageRepository.SaveChages();
                 }
-
-                data.Status = 0;
-
-                _usageRepository.UpdateById(data, data.UsageId);
-                _usageRepository.SaveChages();
-
             }
             catch (Exception ex)
             {

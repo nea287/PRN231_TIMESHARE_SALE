@@ -20,6 +20,12 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             CreateMap<UsageHistory, UsageHistoryRequestModel>().ReverseMap();
             CreateMap<UsageHistoryRequestModel, UsageHistoryViewModel>().ReverseMap();
             #endregion
+
+            #region Account
+            CreateMap<Account, AccountViewModel>().ReverseMap();
+            CreateMap<Account, AccountRequestModel>().ReverseMap();
+            CreateMap<AccountViewModel, AccountRequestModel>().ReverseMap();
+            #endregion
         }
     }
 }
