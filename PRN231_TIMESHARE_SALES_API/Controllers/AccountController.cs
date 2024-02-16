@@ -57,7 +57,8 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         [HttpDelete("DeleteAccountByEmail/{email}")]
         public ResponseResult<AccountViewModel> DeleteAccountByEmail(string email)
         {
-            return _accountService.DeleteAccountById(email);
+            return _accountService.DeleteAccountByEmail(email);
         }
+
     }
 }

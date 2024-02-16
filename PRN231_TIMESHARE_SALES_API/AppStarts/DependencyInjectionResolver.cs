@@ -17,6 +17,11 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             services.AddScoped<IUsageHistoryRepository, UsageHistoryRepository>();
             services.AddScoped<IUsageHistoryService, UsageHistoryService>();
 
+            services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddScoped<IAccountService, AccountService>();
+            
+            services.AddScoped<IStaffOfProjectService, StaffOfProjectService>();
+
         }
     }
 }

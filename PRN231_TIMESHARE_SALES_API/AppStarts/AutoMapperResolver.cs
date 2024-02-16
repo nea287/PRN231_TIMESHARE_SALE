@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Filters;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Services;
 using PRN231_TIMESHARE_SALES_DataLayer.Models;
 
 namespace PRN231_TIMESHARE_SALES_API.AppStarts
@@ -23,8 +25,25 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
 
             #region Account
             CreateMap<Account, AccountViewModel>().ReverseMap();
+
+
+
             CreateMap<Account, AccountRequestModel>().ReverseMap();
             CreateMap<AccountViewModel, AccountRequestModel>().ReverseMap();
+            #endregion
+
+            #region StaffOfProject
+            CreateMap<Account, AccountViewModel>()
+                .ForMember(x => x.Projects, dest => dest.MapFrom(o => o.Projects));
+
+            CreateMap<AccountViewModel, StaffOfProjectFilter>().ReverseMap();
+
+            CreateMap<AccountViewModel, StaffOfProjectFilter>()
+                .ForMember(x => x.ProjectCode, dest => dest.MapFrom(opt => opt.Projects.First().ProjectCode));
+            
+            CreateMap<AccountViewModel, StaffOfProjectFilter>()
+                .ForMember(x => x.ProjectName, dest => dest.MapFrom(opt => opt.Projects.First().ProjectName));
+            
             #endregion
         }
     }
