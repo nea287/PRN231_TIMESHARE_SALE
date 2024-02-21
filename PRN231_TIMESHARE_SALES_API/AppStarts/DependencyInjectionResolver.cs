@@ -20,6 +20,7 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             services.AddScoped<IAccountRepository, AccountRepository>();
             services.AddScoped<IAccountService, AccountService>();
             
+            services.AddScoped<IStaffOfProjectRepository, StaffOfProjectRepository>();
             services.AddScoped<IStaffOfProjectService, StaffOfProjectService>();
 
         }
