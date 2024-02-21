@@ -73,12 +73,13 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_accountRepository)
                 {
-                    result = _accountRepository.GetAll(x => x.Status != 0 && x.Projects != null)
+                    result = _accountRepository.GetAll(x => x.Status != 0 )
                         .AsQueryable()
                         .ProjectTo<AccountViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(_mapper.Map<AccountViewModel>(filter))
                         .PagingIQueryable(paging.page, paging.pageSize,
                             Constraints.LimitPaging, Constraints.DefaultPaging);
+
                 }
 
             }

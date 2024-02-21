@@ -154,7 +154,45 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         #endregion
 
         #region Read
+        public ResponseResult<AccountViewModel> Login(string email, string password)
+        {
+            ResponseResult<AccountViewModel> result = new ResponseResult<AccountViewModel>();
+            try
+            {
+                lock (_accountRepository)
+                {
+                    var data = _mapper.Map<AccountViewModel>(_accountRepository
+                        .FistOrDefault(x => x.Email.ToLower().Equals(email.ToLower())
+                            && x.Password.Equals(x.Password)
+                            && x.Status != 0));
 
+                    result = data == null ?
+                        new ResponseResult<AccountViewModel>()
+                        {
+                            Message = Constraints.NOT_FOUND,
+                            result = false
+                        }
+                        :
+                        new ResponseResult<AccountViewModel>()
+                        {
+                            Message = Constraints.INFORMATION,
+                            Value = data,
+                            result = true
+                        };
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result = new ResponseResult<AccountViewModel>()
+                {
+                    Message = Constraints.LOAD_FAILED,
+                    result = false
+                };
+            }
+
+            return result;
+        }
         public ResponseResult<AccountViewModel> GetAccountById(int id)
         {
             ResponseResult<AccountViewModel> result = new ResponseResult<AccountViewModel>();

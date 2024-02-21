@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using AutoMapper.Configuration.Annotations;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Filters;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
@@ -33,18 +34,33 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             #endregion
 
             #region StaffOfProject
-            CreateMap<Account, AccountViewModel>()
-                .ForMember(x => x.Projects, dest => dest.MapFrom(o => o.Projects));
+            //CreateMap<Account, AccountViewModel>()
+            //    .ForMember(x => x.Projects, dest => dest.MapFrom(o => o.Projects));
 
-            CreateMap<AccountViewModel, StaffOfProjectFilter>().ReverseMap();
+            CreateMap<StaffOfProjectFilter, AccountViewModel>().ForMember(x => x.Projects, dest => dest.MapFrom(opt => new Project() { 
+            ProjectCode = opt.ProjectCode,
+            ProjectName = opt.ProjectName,
+            ProjectId = opt.ProjectId.Value,
+            RegistrationEndDate = opt.RegistrationEndDate.Value,
+            EndDate = opt.EndDate.Value,
+            StartDate = opt.StartDate.Value,
+            RegistrationOpeningDate = opt.RegistrationOpeningDate.Value,
+            PriorityType = opt.PriorityType,
+            Status = opt.Status.Value,
+            TotalSlot = opt.TotalSlot.Value,
+            Departments = new List<Department>(),
+            staff = new List<Account>()
+            })).ReverseMap();
 
-            CreateMap<AccountViewModel, StaffOfProjectFilter>()
-                .ForMember(x => x.ProjectCode, dest => dest.MapFrom(opt => opt.Projects.First().ProjectCode));
+
+            //CreateMap<AccountViewModel, StaffOfProjectFilter>()
+            //    .ForMember(x => x.ProjectCode, dest => dest.MapFrom(opt => opt.Projects.First().ProjectCode));
             
-            CreateMap<AccountViewModel, StaffOfProjectFilter>()
-                .ForMember(x => x.ProjectName, dest => dest.MapFrom(opt => opt.Projects.First().ProjectName));
-            
+            //CreateMap<AccountViewModel, StaffOfProjectFilter>()
+            //    .ForMember(x => x.ProjectName, dest => dest.MapFrom(opt => opt.Projects.First().ProjectName));
+
             #endregion
+
         }
     }
 }

@@ -20,7 +20,16 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             _accountService = accountService;
         }
-
+        [HttpGet("Login")]
+        public ResponseResult<AccountViewModel> Login(string email, string password)
+        {
+            return _accountService.Login(email, password);  
+        }
+        [HttpGet("GetAccountById/{id}")]
+        public ResponseResult<AccountViewModel> GetAccountById(int id)
+        {
+            return _accountService.GetAccountById(id);
+        }
         [HttpGet("GetListAccount")]
         public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetListAccount(
             [FromQuery] AccountViewModel filter, [FromQuery] PagingRequest paging)

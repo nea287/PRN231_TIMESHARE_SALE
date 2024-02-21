@@ -1,6 +1,8 @@
-﻿using PRN231_TIMESHARE_SALES_DataLayer.Models;
+﻿using AutoMapper.Configuration.Annotations;
+using PRN231_TIMESHARE_SALES_DataLayer.Models;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,13 +13,13 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
     {
         public AccountViewModel()
         {
-            ContractCustomers = new HashSet<ContractViewModel>();
-            ContractStaffs = new HashSet<ContractViewModel>();
-            CustomerRequests = new HashSet<CustomerRequestViewModel>();
-            Feedbacks = new HashSet<FeedbackViewModel>();
-            Reservations = new HashSet<ReservationViewModel>();
+            //ContractCustomers = new HashSet<ContractViewModel>();
+            //ContractStaffs = new HashSet<ContractViewModel>();
+            //CustomerRequests = new HashSet<CustomerRequestViewModel>();
+            //Feedbacks = new HashSet<FeedbackViewModel>();
+            //Reservations = new HashSet<ReservationViewModel>();
             UsageHistories = new HashSet<UsageHistoryViewModel>();
-            UsageRights = new HashSet<UsageRightViewModel>();
+            //UsageRights = new HashSet<UsageRightViewModel>();
             Projects = new HashSet<ProjectViewModel>();
         }
 
@@ -34,15 +36,21 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         public string? Email { get; set; }
         public string? Password { get; set; }
         public int? Status { get; set; }
-
-        public ICollection<ContractViewModel>? ContractCustomers { get; set; }
-        public ICollection<ContractViewModel>? ContractStaffs { get; set; }
-        public ICollection<CustomerRequestViewModel>? CustomerRequests { get; set; }
-        public ICollection<FeedbackViewModel>? Feedbacks { get; set; }
-        public ICollection<ReservationViewModel>? Reservations { get; set; }
+        //[Ignore]
+        //public ICollection<ContractViewModel>? ContractCustomers { get; set; }
+        //[Ignore]
+        //public ICollection<ContractViewModel>? ContractStaffs { get; set; }
+        //[Ignore]
+        //public ICollection<CustomerRequestViewModel>? CustomerRequests { get; set; }
+        //[Ignore]
+        //public ICollection<FeedbackViewModel>? Feedbacks { get; set; }
+        //[Ignore]
+        //public ICollection<ReservationViewModel>? Reservations { get; set; }
+        //[Ignore]
         public ICollection<UsageHistoryViewModel>? UsageHistories { get; set; }
-        public ICollection<UsageRightViewModel>? UsageRights { get; set; }
-
+        //[Ignore]
+        //public ICollection<UsageRightViewModel>? UsageRights { get; set; }
+        //[Ignore]
         public ICollection<ProjectViewModel>? Projects { get; set; }
     }
 }
