@@ -8,6 +8,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         {
             //Departments = new HashSet<DepartmentViewModel>();
             //staff = new HashSet<AccountViewModel>();
+            StaffOfProjects = new HashSet<StaffOfProjectsViewModel>();
         }
 
         public int? ProjectId { get; set; }
@@ -20,6 +21,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         public int? Status { get; set; }
         public DateTime? RegistrationEndDate { get; set; }
         public DateTime? RegistrationOpeningDate { get; set; }
+        public ICollection<StaffOfProjectsViewModel>? StaffOfProjects { get; set; }
 
         //public ICollection<DepartmentViewModel>? Departments { get; set; }
 

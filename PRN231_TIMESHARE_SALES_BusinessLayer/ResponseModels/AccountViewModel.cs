@@ -20,7 +20,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
             //Reservations = new HashSet<ReservationViewModel>();
             UsageHistories = new HashSet<UsageHistoryViewModel>();
             //UsageRights = new HashSet<UsageRightViewModel>();
-            Projects = new HashSet<ProjectViewModel>();
+            StaffOfProjects = new HashSet<StaffOfProjectsViewModel>();
         }
 
         public int? AccountId { get; set; }
@@ -48,9 +48,9 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         //public ICollection<ReservationViewModel>? Reservations { get; set; }
         //[Ignore]
         public ICollection<UsageHistoryViewModel>? UsageHistories { get; set; }
+        public ICollection<StaffOfProjectsViewModel>? StaffOfProjects { get; set; }
         //[Ignore]
         //public ICollection<UsageRightViewModel>? UsageRights { get; set; }
         //[Ignore]
-        public ICollection<ProjectViewModel>? Projects { get; set; }
     }
 }

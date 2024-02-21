@@ -28,6 +28,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public virtual DbSet<Reservation> Reservations { get; set; } = null!;
         public virtual DbSet<UsageHistory> UsageHistories { get; set; } = null!;
         public virtual DbSet<UsageRight> UsageRights { get; set; } = null!;
+        public virtual DbSet<StaffOfProject> StaffOfProjects { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
