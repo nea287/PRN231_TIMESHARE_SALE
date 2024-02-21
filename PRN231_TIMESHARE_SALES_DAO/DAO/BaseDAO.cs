@@ -237,5 +237,10 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
         {
             return Table.Count();
         }
+
+        public virtual void Delete(TEntity entity)
+        {
+            Table.Remove(entity);
+        }
     }
 }

@@ -6,6 +6,7 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
+using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
@@ -21,21 +22,33 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
             _service = service;
         }
         [HttpGet("GetStaffOfProjects")]
-        public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetStaffOfProjects([FromQuery]StaffOfProjectFilter filter,
+        public DynamicModelResponse.DynamicModelsResponse<StaffOfProjectsViewModel> GetStaffOfProjects([FromQuery] StaffOfProjectsViewModel filter,
                 [FromQuery]PagingRequest paging)
         {
             return _service.GetStaffOfProjects(filter, paging);
         }
 
-        [HttpGet("GetStaffOfProject/{accountId}/{projectId}")]
-        public ResponseResult<AccountViewModel> GetStaffOfProject(int accountId, int projectId)
+        [HttpGet("GetStaffOfProject")]
+        public ResponseResult<StaffOfProjectsViewModel> GetStaffOfProject([FromQuery] StaffOfProjectRequestModel request)
         {
-            return _service.GetStaffOfProject(accountId, projectId); 
+            return _service.GetStaffOfProject(request); 
         }
-        [HttpPost("CreateStaffOfProject/{accountId}/{projectId}")]
-        public ResponseResult<(AccountViewModel, ProjectViewModel)> CreateStaffOfProject(int accountId, int projectId)
+        [HttpPost("CreateStaffOfProject")]
+        public ResponseResult<StaffOfProjectsViewModel> CreateStaffOfProject([FromBody] StaffOfProjectRequestModel request)
         {
-            return _service.CreateStaffOfProject(accountId, projectId);
+            return _service.CreateStaffOfProject(request);
+        }
+
+        [HttpDelete("DeleteStaffOfProject")]
+        public ResponseResult<StaffOfProjectsViewModel> DeleteStaffOfProject([FromQuery] StaffOfProjectRequestModel request)
+        {
+            return _service.DeleteStaffOfProject(request);
+        }
+
+        [HttpPut("UpdateStaffOfProject/{staffId}/{projectId}")]
+        public ResponseResult<StaffOfProjectsViewModel> UpdateStaffOfProject(int staffId, int projectId, [FromBody] StaffOfProjectRequestModel request)
+        {
+            return _service.UpdateStaffOfProject(staffId, projectId, request);
         }
     }
 }
