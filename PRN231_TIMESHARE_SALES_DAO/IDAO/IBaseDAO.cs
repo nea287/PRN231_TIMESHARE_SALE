@@ -20,6 +20,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.IDAO
         public Task<TEntity> GetByIdGuid(Guid id);
         public Task<IEnumerable<TEntity>> GetWhere(Expression<Func<TEntity, bool>> predicate);
         public Task HardDelete(int key);
+        public void Delete(TEntity entity);
         public Task HardDeleteGuid(Guid key);
         public Task InsertAsync(TEntity entity);
         public void Insert(TEntity entity);

@@ -452,5 +452,16 @@ namespace PRN231_TIMESHARE_SALES_Repository.Repository
                 throw new Exception(ex.Message);
             }
         }
+
+        public void Delete(TEntity entity)
+        {
+            try
+            {
+                BaseDAO<TEntity>.Instance.Delete(entity);
+            }catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
     }
 }

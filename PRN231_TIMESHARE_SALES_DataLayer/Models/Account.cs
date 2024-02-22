@@ -14,7 +14,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
             Reservations = new HashSet<Reservation>();
             UsageHistories = new HashSet<UsageHistory>();
             UsageRights = new HashSet<UsageRight>();
-            Projects = new HashSet<Project>();
+            StaffOfProjects = new HashSet<StaffOfProject>();
         }
 
         public int AccountId { get; set; }
@@ -39,6 +39,6 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public virtual ICollection<UsageHistory> UsageHistories { get; set; }
         public virtual ICollection<UsageRight> UsageRights { get; set; }
 
-        public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<StaffOfProject> StaffOfProjects { get; set; }
     }
 }

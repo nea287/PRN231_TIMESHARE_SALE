@@ -28,6 +28,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public virtual DbSet<Reservation> Reservations { get; set; } = null!;
         public virtual DbSet<UsageHistory> UsageHistories { get; set; } = null!;
         public virtual DbSet<UsageRight> UsageRights { get; set; } = null!;
+        public virtual DbSet<StaffOfProject> StaffOfProjects { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -73,18 +74,27 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 
                 entity.Property(e => e.State).HasMaxLength(50);
 
-                entity.HasMany(d => d.Projects)
-                    .WithMany(p => p.staff)
-                    .UsingEntity<Dictionary<string, object>>(
-                        "StaffOfProject",
-                        l => l.HasOne<Project>().WithMany().HasForeignKey("ProjectId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_StaffOfProject_Project"),
-                        r => r.HasOne<Account>().WithMany().HasForeignKey("StaffId").OnDelete(DeleteBehavior.ClientSetNull).HasConstraintName("FK_StaffOfProject_Account"),
-                        j =>
-                        {
-                            j.HasKey("StaffId", "ProjectId");
 
-                            j.ToTable("StaffOfProject");
-                        });
+
+            });
+
+            modelBuilder.Entity<StaffOfProject>(entity =>
+            {
+                entity.HasKey(sop => new { sop.StaffId, sop.ProjectId });
+                entity.ToTable("StaffOfProject");
+
+                entity.HasOne(d => d.Account)
+                .WithMany(p => p.StaffOfProjects)
+                .HasForeignKey(d => d.StaffId)
+                .HasConstraintName("FK_StaffOfProject_Account");
+
+
+                entity.HasOne(d => d.Project)
+                .WithMany(p => p.StaffOfProjects)
+                .HasForeignKey(d => d.ProjectId)
+                .HasConstraintName("FK_StaffOfProject_Project");
+
+
             });
 
             modelBuilder.Entity<AvailableTime>(entity =>
@@ -257,6 +267,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                 entity.Property(e => e.RegistrationOpeningDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+
+
             });
 
             modelBuilder.Entity<Reservation>(entity =>
