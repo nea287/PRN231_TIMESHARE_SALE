@@ -123,6 +123,12 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
 #endregion
+#region Redis
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = builder.Configuration["RedisCacheUrl"];
+});
+#endregion 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

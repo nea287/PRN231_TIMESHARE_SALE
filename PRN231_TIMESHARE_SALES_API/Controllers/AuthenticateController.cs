@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
+using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
@@ -21,6 +22,18 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         public UserLoginResponse Login(string email, string password)
         {
             return _accountService.Login(email, password);
+        }
+
+        [HttpPost("SendVerificationCode/{email}")]
+        public bool SendVerificationCode(string email)
+        {
+            return _accountService.SendVerificationCode(email);
+        }
+
+        [HttpPost("Register/{verificationCode}")]
+        public ResponseResult<AccountViewModel> Register([FromBody] AccountRequestModel request, string verificationCode)
+        {
+            return _accountService.Register(request, verificationCode);
         }
     }
 }
