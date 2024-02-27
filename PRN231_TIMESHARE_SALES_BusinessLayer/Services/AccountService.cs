@@ -19,11 +19,13 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
 {
     public class AccountService : IAccountService
     {
+        private readonly ITokenService _token;
         private readonly IAccountRepository _accountRepository;
         private readonly IMapper _mapper;
 
-        public AccountService(IMapper mapper, IAccountRepository accountRepository)
+        public AccountService(IMapper mapper, IAccountRepository accountRepository, ITokenService token)
         {
+            _token = token;
             _accountRepository = accountRepository;
             _mapper = mapper;
         }
@@ -154,9 +156,9 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         #endregion
 
         #region Read
-        public ResponseResult<AccountViewModel> Login(string email, string password)
+        public UserLoginResponse Login(string email, string password)
         {
-            ResponseResult<AccountViewModel> result = new ResponseResult<AccountViewModel>();
+            UserLoginResponse result = new UserLoginResponse();
             try
             {
                 lock (_accountRepository)
@@ -166,28 +168,38 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                             && x.Password.Equals(x.Password)
                             && x.Status != 0));
 
-                    result = data == null ?
-                        new ResponseResult<AccountViewModel>()
-                        {
-                            Message = Constraints.NOT_FOUND,
-                            result = false
-                        }
-                        :
-                        new ResponseResult<AccountViewModel>()
+                    if(data != null)
+                    {
+                        string roleName = Enum.GetName(typeof(AccountRole), data.Role);
+
+                        var dataToken = _token.GenerateAccessToken(email, roleName);
+                        result = new UserLoginResponse()
                         {
                             Message = Constraints.INFORMATION,
                             Value = data,
-                            result = true
+                            Result = true, 
+                            AccessToken = dataToken.accessToken,
+                            RefreshToken = dataToken.refreshToken
                         };
+                    }
+                    else
+                    {
+                        result = new UserLoginResponse()
+                        {
+                            Message = Constraints.NOT_FOUND,
+                            Result = false
+                        };
+                        
+                    }         
 
                 }
             }
             catch (Exception ex)
             {
-                result = new ResponseResult<AccountViewModel>()
+                result = new UserLoginResponse()
                 {
                     Message = Constraints.LOAD_FAILED,
-                    result = false
+                    Result = false
                 };
             }
 

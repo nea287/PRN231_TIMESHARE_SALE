@@ -6,4 +6,11 @@ using System.Threading.Tasks;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
 {
+    public enum AccountRole
+    {
+        NULL, 
+        ADMIN,
+        STAFF,
+        CUSTOMER
+    }
 }
