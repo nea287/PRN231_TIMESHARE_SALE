@@ -1,6 +1,7 @@
 ﻿using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,16 +10,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
 {
     public class DepartmentRequestModel
     {
-        public DepartmentRequestModel()
-        {
-            AvailableTimes = new HashSet<AvailableTimeViewModel>();
-            CustomerRequests = new HashSet<CustomerRequestViewModel>();
-            Facilities = new HashSet<FacilityViewModel>();
-            Feedbacks = new HashSet<FeedbackViewModel>();
-            UsageHistories = new HashSet<UsageHistoryViewModel>();
-        }
 
-        public int? DepartmentId { get; set; }
+        [Required(ErrorMessage = "Please enter department name!")]
         public string? DepartmentName { get; set; }
         public int? ProjectId { get; set; }
         public int? OwnerId { get; set; }

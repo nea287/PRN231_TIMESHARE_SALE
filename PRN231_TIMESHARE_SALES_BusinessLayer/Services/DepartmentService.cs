@@ -36,17 +36,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_departmentRepository)
                 {
-                    //if (_departmentRepository.Any(x =>
-                    //x.DepartmentCode.ToLower().Equals(request.DepartmentId.ToLower())
-                    //&& x.Status != 0))
-                    //{
-                    //    return new ResponseResult<DepartmentViewModel>()
-                    //    {
-                    //        Message = Constraints.INFORMATION_EXISTED,
-                    //        result = false,
-                    //    };
-                    //}
-
                     var data = _mapper.Map<Department>(request);
                     _departmentRepository.Insert(data);
                     _departmentRepository.SaveChages();
