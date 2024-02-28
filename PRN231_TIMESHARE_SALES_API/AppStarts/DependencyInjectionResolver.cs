@@ -11,6 +11,8 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
         {
             services.AddSingleton(typeof(IBaseRepository<>), typeof(BaseRepository<>));
 
+            services.AddScoped<ITokenService, TokenService>();
+
             services.AddScoped<IProjectRepository, ProjectRepository>();
             services.AddScoped<IProjectService, ProjectService>();
 

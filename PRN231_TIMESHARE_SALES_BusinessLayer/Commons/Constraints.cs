@@ -9,7 +9,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
 {
     public class Constraints
     {
-        #region 
+        #region Generic
         public const string NOT_FOUND = "Infomation Not Found!";
         public const string LOAD_FAILED = "Load Failed!";
         public const string CREATE_SUCCESS = "Create Success";
@@ -30,6 +30,10 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
 
         #region Project
         public const string NOT_FOUND_PROJECT = "Project Not Found!";
+        #endregion
+
+        #region Authenticate
+        public const string INVALID_VERIFICATION_CODE = "Verification code is invalid!";
         #endregion
     }
 }

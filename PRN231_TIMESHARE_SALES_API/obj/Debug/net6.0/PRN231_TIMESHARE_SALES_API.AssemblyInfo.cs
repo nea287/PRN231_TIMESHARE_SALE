@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("PRN231_TIMESHARE_SALES_API")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bdfb61789d5b62c2571bed8d428ac8762810407d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0cc2783b5a16510f1b5df3fb3ae87fb8fc58fa07")]
 [assembly: System.Reflection.AssemblyProductAttribute("PRN231_TIMESHARE_SALES_API")]
 [assembly: System.Reflection.AssemblyTitleAttribute("PRN231_TIMESHARE_SALES_API")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

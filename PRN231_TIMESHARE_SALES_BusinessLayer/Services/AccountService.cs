@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.Extensions.Caching.Distributed;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
@@ -14,18 +16,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
 {
     public class AccountService : IAccountService
     {
+        private readonly IDistributedCache _cache;
+        private readonly ITokenService _token;
         private readonly IAccountRepository _accountRepository;
         private readonly IMapper _mapper;
 
-        public AccountService(IMapper mapper, IAccountRepository accountRepository)
+        public AccountService(IMapper mapper, IAccountRepository accountRepository, ITokenService token, IDistributedCache cache)
         {
+            _token = token;
             _accountRepository = accountRepository;
             _mapper = mapper;
+            _cache = cache; 
         }
         #region Create
         public ResponseResult<AccountViewModel> CreateAccount(AccountRequestModel request)
@@ -154,45 +161,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         #endregion
 
         #region Read
-        public ResponseResult<AccountViewModel> Login(string email, string password)
-        {
-            ResponseResult<AccountViewModel> result = new ResponseResult<AccountViewModel>();
-            try
-            {
-                lock (_accountRepository)
-                {
-                    var data = _mapper.Map<AccountViewModel>(_accountRepository
-                        .FistOrDefault(x => x.Email.ToLower().Equals(email.ToLower())
-                            && x.Password.Equals(x.Password)
-                            && x.Status != 0));
-
-                    result = data == null ?
-                        new ResponseResult<AccountViewModel>()
-                        {
-                            Message = Constraints.NOT_FOUND,
-                            result = false
-                        }
-                        :
-                        new ResponseResult<AccountViewModel>()
-                        {
-                            Message = Constraints.INFORMATION,
-                            Value = data,
-                            result = true
-                        };
-
-                }
-            }
-            catch (Exception ex)
-            {
-                result = new ResponseResult<AccountViewModel>()
-                {
-                    Message = Constraints.LOAD_FAILED,
-                    result = false
-                };
-            }
-
-            return result;
-        }
         public ResponseResult<AccountViewModel> GetAccountById(int id)
         {
             ResponseResult<AccountViewModel> result = new ResponseResult<AccountViewModel>();
@@ -367,6 +335,149 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 Value = result
             };
         }
+        #endregion
+
+        #region Authenticate
+        public UserLoginResponse Login(string email, string password)
+        {
+            UserLoginResponse result = new UserLoginResponse();
+            try
+            {
+                lock (_accountRepository)
+                {
+                    var data = _mapper.Map<AccountViewModel>(_accountRepository
+                        .FistOrDefault(x => x.Email.ToLower().Equals(email.ToLower())
+                            && x.Password.Equals(x.Password)
+                            && x.Status != 0));
+
+                    if (data != null)
+                    {
+                        string roleName = Enum.GetName(typeof(AccountRole), data.Role);
+
+                        var dataToken = _token.GenerateAccessToken(email, roleName);
+                        result = new UserLoginResponse()
+                        {
+                            Message = Constraints.INFORMATION,
+                            Value = data,
+                            Result = true,
+                            AccessToken = dataToken.accessToken,
+                            RefreshToken = dataToken.refreshToken
+                        };
+                    }
+                    else
+                    {
+                        result = new UserLoginResponse()
+                        {
+                            Message = Constraints.NOT_FOUND,
+                            Result = false
+                        };
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                result = new UserLoginResponse()
+                {
+                    Message = Constraints.LOAD_FAILED,
+                    Result = false
+                };
+            }
+
+            return result;
+        }
+
+        public bool SendVerificationCode(string receiverMail)
+        {
+            try
+            {
+                string code = SupportingFeature.Instance.GenerateCode();
+                SupportingFeature.Instance.SendEmail(receiverMail, code, "Mã xác thực");
+
+                SetCache(code, "verification-code", 5);
+
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+            return true;
+        }
+
+        public ResponseResult<AccountViewModel> Register(AccountRequestModel request, string verificationCode)
+        {
+            AccountViewModel result = new AccountViewModel();
+
+            if (verificationCode != GetCache("verification-code"))
+            {
+                return new ResponseResult<AccountViewModel>()
+                {
+                    Message = Constraints.INVALID_VERIFICATION_CODE,
+                    result = false,
+                };
+            }
+
+            try
+            {
+                lock (_accountRepository)
+                {
+                    if (_accountRepository.Any(x =>
+                    x.Email.ToLower().Equals(request.Email.ToLower())
+                    && x.Status != 0))
+                    {
+                        return new ResponseResult<AccountViewModel>()
+                        {
+                            Message = Constraints.INFORMATION_EXISTED,
+                            result = false,
+                        };
+                    }
+
+                    var data = _mapper.Map<Account>(request);
+                    _accountRepository.Insert(data);
+                    _accountRepository.SaveChages();
+
+                    result = _mapper.Map<AccountViewModel>(data);
+                };
+
+            }
+            catch (Exception ex)
+            {
+                return new ResponseResult<AccountViewModel>()
+                {
+                    Message = Constraints.CREATE_FAILED,
+                    result = false,
+                };
+            }
+
+            return new ResponseResult<AccountViewModel>()
+            {
+                Message = Constraints.CREATE_SUCCESS,
+                result = true,
+                Value = result
+            };
+        }
+        #endregion
+
+        #region Redis
+
+        public void SetCache(string value, string nameValue, int minutes)
+        {
+            DistributedCacheEntryOptions options = new DistributedCacheEntryOptions()
+            .SetAbsoluteExpiration(DateTime.Now.AddMinutes(minutes))
+            .SetSlidingExpiration(TimeSpan.FromMinutes(minutes));
+
+            var dataToCache = Encoding.UTF8.GetBytes(value);
+            _cache.Set(nameValue, dataToCache, options);
+        }
+
+        public string? GetCache(string nameValue)
+        {
+            var data = _cache.Get(nameValue);
+            
+            return data != null? Encoding.UTF8.GetString(data) : null;
+        }
+
         #endregion
     }
 }

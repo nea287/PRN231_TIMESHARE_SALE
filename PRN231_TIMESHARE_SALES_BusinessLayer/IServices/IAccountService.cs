@@ -19,6 +19,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         public ResponseResult<AccountViewModel> DeleteAccountById(int id);
         public ResponseResult<AccountViewModel> DeleteAccountByEmail(string email);
         public ResponseResult<AccountViewModel> CreateAccount(AccountRequestModel request);
-        public ResponseResult<AccountViewModel> Login(string email, string password);
+        public UserLoginResponse Login(string email, string password);
+        public bool SendVerificationCode(string receiverMail);
+        public ResponseResult<AccountViewModel> Register(AccountRequestModel request, string verificationCode);
     }
 }

@@ -7,23 +7,20 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
     [EnableCors("AllowAnyOrigins")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;  
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
-        }
-        [HttpGet("Login")]
-        public ResponseResult<AccountViewModel> Login(string email, string password)
-        {
-            return _accountService.Login(email, password);  
         }
         [HttpGet("GetAccountById/{id}")]
         public ResponseResult<AccountViewModel> GetAccountById(int id)
