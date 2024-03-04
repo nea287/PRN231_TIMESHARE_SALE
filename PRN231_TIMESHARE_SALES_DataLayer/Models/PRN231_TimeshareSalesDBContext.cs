@@ -35,7 +35,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=MEOWMEOW\\SQLEXPRESS;Uid=sa;Pwd=1234567890;Database=PRN231_TimeshareSalesDB;TrustServerCertificate=true");
+                optionsBuilder.UseSqlServer("server=database.monoinfinity.net;database=TimeshareSalesDB;uid=sa;pwd=1234567890Aa;TrustServerCertificate=True");
             }
         }
 
