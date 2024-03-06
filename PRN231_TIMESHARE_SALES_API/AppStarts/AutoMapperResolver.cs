@@ -58,6 +58,12 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             CreateMap<AvailableTimeViewModel, AvailableTimeRequestModel>();
             #endregion
 
+            #region Contract
+            CreateMap<Contract, ContractViewModel>().ReverseMap();
+            CreateMap<Contract, ContractRequestModel>().ReverseMap();
+            CreateMap<ContractViewModel, ContractRequestModel>().ReverseMap();
+            #endregion
+
         }
     }
 }
