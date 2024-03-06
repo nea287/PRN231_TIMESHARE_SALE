@@ -25,5 +25,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         public decimal? RegularPaymentAmount { get; set; }
         public decimal? CommissionAmount { get; set; }
         public int? NumberYears { get; set; }
+        public int? NumberMonths { get; set; }
     }
 }

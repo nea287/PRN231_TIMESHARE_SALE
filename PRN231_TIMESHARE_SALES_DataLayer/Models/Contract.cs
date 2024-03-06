@@ -19,6 +19,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public decimal? RegularPaymentAmount { get; set; }
         public decimal? CommissionAmount { get; set; }
         public int? NumberYears { get; set; }
+        public int? NumberMonths { get; set; }
 
         public virtual AvailableTime AvailableTime { get; set; } = null!;
         public virtual Account Customer { get; set; } = null!;
