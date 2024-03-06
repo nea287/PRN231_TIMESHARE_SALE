@@ -28,6 +28,9 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             services.AddScoped<IReservationRepository, ReservationRepository>();
             services.AddScoped<IReservationService, ReservationService>();
 
+            services.AddScoped<IUsageRightRepository, UsageRightRepository>();
+            services.AddScoped<IUsageRightService, UsageRightService>();
+
         }
     }
 }
