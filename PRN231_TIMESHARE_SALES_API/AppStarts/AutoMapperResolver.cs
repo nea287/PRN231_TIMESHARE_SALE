@@ -40,6 +40,16 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
 
             #endregion
 
+            #region Reservation
+            CreateMap<Reservation, ReservationViewModel>().ReverseMap();
+            CreateMap<Reservation, ReservationRequestModel>().ReverseMap();
+            CreateMap<ReservationViewModel, ReservationRequestModel>();
+            #endregion
+
+            #region UsageRight
+            CreateMap<UsageRight, UsageRightViewModel>();
+            #endregion
+
         }
     }
 }
