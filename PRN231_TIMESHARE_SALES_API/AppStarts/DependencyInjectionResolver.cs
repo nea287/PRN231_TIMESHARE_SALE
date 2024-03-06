@@ -31,6 +31,9 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             services.AddScoped<IUsageRightRepository, UsageRightRepository>();
             services.AddScoped<IUsageRightService, UsageRightService>();
 
+            services.AddScoped<IAvailableTimeRepository, AvailableTimeRepository>();
+            services.AddScoped<IAvailableTimeService, AvailableTimeService>();
+
         }
     }
 }
