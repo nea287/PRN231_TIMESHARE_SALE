@@ -1,13 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace PRN231_TIMESHARE_SALES_DataLayer.Models
+namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
 {
-    public partial class Contract
+    public class ContractRequestModel
     {
-        public int ContractId { get; set; }
+        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Staff Id is Invalid!")]
         public int? StaffId { get; set; }
+        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Customer Id is Invalid!")]
         public int CustomerId { get; set; }
+        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Available Id is Invalid!")]
         public int AvailableTimeId { get; set; }
         public string ContractName { get; set; } = null!;
         public DateTime? ContractDate { get; set; }
@@ -20,9 +26,5 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public decimal? CommissionAmount { get; set; }
         public int? NumberYears { get; set; }
         public int? NumberMonths { get; set; }
-
-        public virtual AvailableTime AvailableTime { get; set; } = null!;
-        public virtual Account Customer { get; set; } = null!;
-        public virtual Account? Staff { get; set; }
     }
 }

@@ -47,13 +47,6 @@ builder.Services.AddSwaggerGen(c =>
     #endregion
 });
 
-#region DbContext
-builder.Services.AddDbContext<PRN231_TimeshareSalesDBContext>(options =>
-{
-    options.UseLazyLoadingProxies();
-    options.UseSqlServer(builder.Configuration.GetConnectionString("TimeShareSalesDB"));
-});
-#endregion
 
 #region AppStarts
 builder.Services.AddAutoMapper(typeof(AutoMapperResolver).Assembly);
@@ -130,7 +123,6 @@ builder.Services.AddStackExchangeRedisCache(options =>
 });
 #endregion 
 var app = builder.Build();
-
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {

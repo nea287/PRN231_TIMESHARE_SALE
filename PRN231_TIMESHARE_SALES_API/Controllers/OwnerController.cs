@@ -9,6 +9,7 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
+    [EnableCors("AllowAnyOrigins")]
     [Route("api/[controller]")]
     [ApiController]
     public class OwnerController : ControllerBase
