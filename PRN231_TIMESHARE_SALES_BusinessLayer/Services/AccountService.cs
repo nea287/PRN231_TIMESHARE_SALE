@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
@@ -208,6 +209,12 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 {
                     result = _accountRepository.GetAll(x => x.Status != 0)
                         .AsQueryable()
+                        //.Include(x => x.StaffOfProjects)
+                        //.Include(x => x.Feedbacks)
+                        //.Include(x => x.ContractCustomers)
+                        //.Include(x => x.UsageHistories)
+                        //.Include(x => x.ContractStaffs)
+                        //.Include(x => x.Reservations)
                         .ProjectTo<AccountViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(filter)
                         .PagingIQueryable(paging.page, paging.pageSize,

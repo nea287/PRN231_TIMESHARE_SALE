@@ -25,10 +25,15 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             #endregion
 
             #region Account
-            CreateMap<Account, AccountViewModel>().ReverseMap();
-
-
-
+            CreateMap<Account, AccountViewModel>()
+                //.ForMember(x => x.CustomerRequests, dest => dest.MapFrom(opt => opt.CustomerRequests))
+                //.ForMember(x => x.Feedbacks, dest => dest.MapFrom(opt => opt.Feedbacks))
+                //.ForMember(x => x.StaffOfProjects, dest => dest.MapFrom(opt => opt.StaffOfProjects))
+                //.ForMember(x => x.ContractCustomers, dest => dest.MapFrom(opt => opt.ContractCustomers))
+                //.ForMember(x => x.ContractStaffs, dest => dest.MapFrom(opt => opt.ContractStaffs))
+                //.ForMember(x => x.UsageRights, dest => dest.MapFrom(opt => opt.UsageRights))    
+                //.ForMember(x => x.UsageHistories, dest => dest.MapFrom(opt => opt.UsageHistories))
+                .ReverseMap();
             CreateMap<Account, AccountRequestModel>().ReverseMap();
             CreateMap<AccountViewModel, AccountRequestModel>().ReverseMap();
             #endregion
@@ -62,6 +67,36 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             CreateMap<Contract, ContractViewModel>().ReverseMap();
             CreateMap<Contract, ContractRequestModel>().ReverseMap();
             CreateMap<ContractViewModel, ContractRequestModel>().ReverseMap();
+            #endregion
+
+            #region Facillity
+            CreateMap<Facility, FacilityViewModel>().ReverseMap();
+            CreateMap<Facility, FacilityRequestModel>().ReverseMap();
+            CreateMap<FacilityViewModel, FacilityRequestModel>().ReverseMap();
+            #endregion
+
+            #region Feedback
+            CreateMap<Feedback, FeedbackViewModel>().ReverseMap();
+            CreateMap<Feedback, FeedbackRequestModel>().ReverseMap();
+            CreateMap<FeedbackRequestModel, FeedbackViewModel>();
+            #endregion
+
+            #region Owner
+            CreateMap<Owner, OwnerViewModel>().ReverseMap();
+            CreateMap<Owner, OwnerRequestModel>().ReverseMap();
+            CreateMap<OwnerViewModel, OwnerRequestModel>().ReverseMap();
+            #endregion
+
+            #region Department
+            CreateMap<Department, DepartmentViewModel>().ReverseMap();
+            CreateMap<DepartmentRequestModel, Department>().ReverseMap();
+            CreateMap<DepartmentViewModel, DepartmentRequestModel>().ReverseMap();
+            #endregion
+
+            #region CustomerRequest
+            CreateMap<CustomerRequest, CustomerRequestRequestModel>().ReverseMap();
+            CreateMap<CustomerRequest, CustomerRequestViewModel>().ReverseMap();
+            CreateMap<CustomerRequestViewModel, CustomerRequestRequestModel>().ReverseMap();
             #endregion
 
         }
