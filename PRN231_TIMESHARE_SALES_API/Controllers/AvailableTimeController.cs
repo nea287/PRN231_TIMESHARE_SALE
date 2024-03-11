@@ -5,6 +5,7 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {

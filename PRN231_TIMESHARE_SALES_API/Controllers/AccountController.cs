@@ -6,7 +6,6 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
-using PRN231_TIMESHARE_SALES_BusinessLayer.Services;
 using Microsoft.AspNetCore.Authorization;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
@@ -22,11 +21,13 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             _accountService = accountService;
         }
+        [Authorize(Policy = "RequiredAdminOrStaff")]
         [HttpGet("GetAccountById/{id}")]
         public ResponseResult<AccountViewModel> GetAccountById(int id)
         {
             return _accountService.GetAccountById(id);
         }
+        [Authorize(Policy = "RequiredAdminOrStaff")]
         [HttpGet("GetListAccount")]
         public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetListAccount(
             [FromQuery] AccountViewModel filter, [FromQuery] PagingRequest paging)
@@ -53,13 +54,13 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return _accountService.UpdateAccountByEmail(email, request);
         }
-
+        [Authorize(Policy = "RequiredAdminOrStaff")]
         [HttpDelete("DeleteAccountById/{id}")]
         public ResponseResult<AccountViewModel> DeleteAccountById(int id)
         {
             return _accountService.DeleteAccountById(id);
         }
-        
+        [Authorize(Policy = "RequiredAdminOrStaff")]
         [HttpDelete("DeleteAccountByEmail/{email}")]
         public ResponseResult<AccountViewModel> DeleteAccountByEmail(string email)
         {

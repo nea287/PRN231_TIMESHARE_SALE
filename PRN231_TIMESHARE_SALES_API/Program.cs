@@ -100,6 +100,15 @@ builder.Services.AddAuthorization(options =>
     {
         policy.RequireRole("STAFF");
     });
+    options.AddPolicy("RequireStaffOrCustomer", policy =>
+    {
+        policy.RequireRole("STAFF", "CUSTOMER");
+
+    });
+    options.AddPolicy("RequiredAdminOrStaff", policy =>
+    {
+        policy.RequireRole("ADMIN", "STAFF");
+    });
     options.AddPolicy("Bearer", policy =>
     {
         policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
