@@ -353,8 +353,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 lock (_accountRepository)
                 {
                     var data = _mapper.Map<AccountViewModel>(_accountRepository
-                        .FistOrDefault(x => x.Email.ToLower().Equals(email.ToLower())
-                            && x.Password.Equals(x.Password)
+                        .GetFirstOrDefault(x => x.Email.ToLower().Equals(email.ToLower())
+                            && x.Password.Equals(password)
                             && x.Status != 0));
 
                     if (data != null)

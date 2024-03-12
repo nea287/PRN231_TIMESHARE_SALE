@@ -153,16 +153,16 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
     {
         DISABLE,
         ACTIVE,
-        CONFIRMED, //XÁC NHẬN
-        PENDING, //Chờ xử lý
+        CONFIRMED, //XÁC NHẬN 3
+        PENDING, //Chờ xử lý 1
         CANCELLED,
         COMPLETED,
-        WAITLISTED, //Đang đợi xác nhận
+        WAITLISTED, //Đang đợi xác nhận 2
         CHECKED_IN, //Đã nhận phòng
         CHECKED_OUT, //Đã trả phòng
-        IN_PROGRESS, //Chờ thanh toán
+        IN_PROGRESS, //Chờ thanh toán 4
         NO_SHOW, //Khách không xuất hiện
-        ON_HOLD, //Đã giữ chỗ 
+        ON_HOLD, //Đã giữ chỗ 5
     }
 
     public enum UsageHistoryStatus
