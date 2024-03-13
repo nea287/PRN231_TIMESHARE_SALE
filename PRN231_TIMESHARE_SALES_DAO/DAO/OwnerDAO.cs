@@ -10,7 +10,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
 {
     public class OwnerDAO : BaseDAO<Owner>, IOwnerDAO
     {
-        public OwnerDAO(PRN231_TimeshareSalesDBContext context) : base(context)
+        public OwnerDAO(TimeshareSalesDBContext context) : base(context)
         {
         }
     }

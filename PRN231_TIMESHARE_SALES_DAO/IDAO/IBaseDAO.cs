@@ -28,9 +28,10 @@ namespace PRN231_TIMESHARE_SALES_DAO.IDAO
         public Task UpdateById(TEntity entity, int id);
         public Task UpdateGuid(TEntity entity, Guid id);
         public void UpdateRange(IQueryable<TEntity> entities);
-        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
-            string? includeProperties = null);
+        public IEnumerable<TEntity> GetAll(
+        Expression<Func<TEntity, bool>>? filter = null,
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+        string? includeProperties = null);
         public TEntity GetFirstOrDefault(Expression<Func<TEntity, bool>>? filter = null,
             string? includeProperties = null);
         public bool Any(Func<TEntity, bool> predicate);

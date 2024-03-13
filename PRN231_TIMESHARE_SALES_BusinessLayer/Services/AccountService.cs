@@ -207,14 +207,11 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_accountRepository)
                 {
-                    result = _accountRepository.GetAll(x => x.Status != 0)
+                    result = _accountRepository.GetAll(filter: x => x.Status != 0,
+                                                includeProperties: String.Join(",", 
+                                                SupportingFeature.GetNameIncludedProperties<Account>()))
                         .AsQueryable()
-                        //.Include(x => x.StaffOfProjects)
-                        //.Include(x => x.Feedbacks)
-                        //.Include(x => x.ContractCustomers)
-                        //.Include(x => x.UsageHistories)
-                        //.Include(x => x.ContractStaffs)
-                        //.Include(x => x.Reservations)
+
                         .ProjectTo<AccountViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(filter)
                         .PagingIQueryable(paging.page, paging.pageSize,
@@ -484,7 +481,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             
             return data != null? Encoding.UTF8.GetString(data) : null;
         }
-
         #endregion
     }
 }

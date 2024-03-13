@@ -10,7 +10,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
 {
     public class CustomerRequestDAO : BaseDAO<CustomerRequest>, ICustomerRequestDAO
     {
-        public CustomerRequestDAO(PRN231_TimeshareSalesDBContext context) : base(context)
+        public CustomerRequestDAO(TimeshareSalesDBContext context) : base(context)
         {
         }
     }

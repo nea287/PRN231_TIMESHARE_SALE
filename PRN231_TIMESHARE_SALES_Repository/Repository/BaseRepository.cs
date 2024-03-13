@@ -151,7 +151,10 @@ namespace PRN231_TIMESHARE_SALES_Repository.Repository
             return result;
         }
 
-        public IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, string? includeProperties = null)
+        public IEnumerable<TEntity> GetAll(
+        Expression<Func<TEntity, bool>>? filter = null,
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+        string? includeProperties = null)
         {
             IEnumerable<TEntity> result;
             try

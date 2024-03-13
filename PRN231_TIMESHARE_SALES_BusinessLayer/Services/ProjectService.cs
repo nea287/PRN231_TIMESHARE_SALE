@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
@@ -120,7 +121,9 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_projectRepository)
                 {
-                    result = _projectRepository.GetAll(x => x.Status != 0)
+                    result = _projectRepository.GetAll(filter: x => x.Status != 0,
+                                                includeProperties: String.Join(",", 
+                                                               SupportingFeature.GetNameIncludedProperties<Project>()))
                         .AsQueryable()
                         .ProjectTo<ProjectViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(filter)
@@ -151,6 +154,11 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             };
         }
         #endregion
+        //#region Get Income statistics
+        //public DynamicModelResponse.DynamicModelsResponse<ProjectViewModel> GetInComeStatistics()
+        //{
+
+        //}
         #endregion
 
         #region Update

@@ -10,7 +10,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
 {
     public class FacilityDAO : BaseDAO<Facility>, IFacilityDAO
     {
-        public FacilityDAO(PRN231_TimeshareSalesDBContext context) : base(context)
+        public FacilityDAO(TimeshareSalesDBContext context) : base(context)
         {
         }
     }

@@ -17,7 +17,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public int? Status { get; set; }
         public int? DepartmentId { get; set; }
 
-        public virtual Department? Department { get; set; }
+        public virtual Department Department { get; set; }
         public virtual ICollection<Contract> Contracts { get; set; }
         public virtual ICollection<Reservation> Reservations { get; set; }
     }

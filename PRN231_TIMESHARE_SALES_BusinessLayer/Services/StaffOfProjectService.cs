@@ -3,6 +3,7 @@ using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Filters;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
@@ -76,9 +77,9 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_repository)
                 {
-                    result = _repository.GetAll()
-                        .Include(x => x.Account)
-                        .Include(x => x.Project)
+                    result = _repository.GetAll(includeProperties: 
+                                        String.Join(",", SupportingFeature
+                                              .GetNameIncludedProperties<StaffOfProject>()))
                         .AsQueryable()
                         .ProjectTo<StaffOfProjectsViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(_mapper.Map<StaffOfProjectsViewModel>(filter))

@@ -7,6 +7,7 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
+using PRN231_TIMESHARE_SALES_DataLayer.Models;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
@@ -66,6 +67,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return _accountService.DeleteAccountByEmail(email);
         }
+
 
     }
 }

@@ -10,7 +10,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
 {
     public class FeedbackDAO : BaseDAO<Feedback>, IFeedbackDAO
     {
-        public FeedbackDAO(PRN231_TimeshareSalesDBContext context) : base(context)
+        public FeedbackDAO(TimeshareSalesDBContext context) : base(context)
         {
         }
     }

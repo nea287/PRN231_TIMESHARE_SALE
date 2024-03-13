@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Distributed;
 using MimeKit;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 using System.Text;
+using System.Collections;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Helpers
 {
@@ -55,5 +56,18 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Helpers
             return Convert.ToString(new Random().Next(100000, 999999));
         }
 
+        public static IEnumerable<string> GetNameOfProperties<T>()
+        {
+
+            return typeof(T).GetProperties().Select(p => p.Name);
+        }
+
+        public static IEnumerable<string> GetNameIncludedProperties<T>()
+        {
+            return typeof(T).GetProperties()
+                .Where(x => x.PropertyType.IsGenericType)
+                .Where(x => x.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
+                .Select(p => p.Name);
+        }
     }
 }
