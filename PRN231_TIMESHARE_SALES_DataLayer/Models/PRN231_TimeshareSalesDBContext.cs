@@ -93,7 +93,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                 entity.HasKey(sop => new { sop.StaffId, sop.ProjectId });
                 entity.ToTable("StaffOfProject");
 
-                entity.HasOne(d => d.Account)
+                entity.HasOne(d => d.Staff)
                 .WithMany(p => p.StaffOfProjects)
                 .HasForeignKey(d => d.StaffId)
                 .HasConstraintName("FK_StaffOfProject_Account");
