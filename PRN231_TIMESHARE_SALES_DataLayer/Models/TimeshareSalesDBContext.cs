@@ -6,13 +6,13 @@ using Microsoft.Extensions.Configuration;
 
 namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 {
-    public partial class PRN231_TimeshareSalesDBContext : DbContext
+    public partial class TimeshareSalesDBContext : DbContext
     {
-        public PRN231_TimeshareSalesDBContext()
+        public TimeshareSalesDBContext()
         {
         }
 
-        public PRN231_TimeshareSalesDBContext(DbContextOptions<PRN231_TimeshareSalesDBContext> options)
+        public TimeshareSalesDBContext(DbContextOptions<TimeshareSalesDBContext> options)
             : base(options)
         {
         }
@@ -27,15 +27,16 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public virtual DbSet<Owner> Owners { get; set; } = null!;
         public virtual DbSet<Project> Projects { get; set; } = null!;
         public virtual DbSet<Reservation> Reservations { get; set; } = null!;
+        public virtual DbSet<StaffOfProject> StaffOfProjects { get; set; } = null!;
         public virtual DbSet<UsageHistory> UsageHistories { get; set; } = null!;
         public virtual DbSet<UsageRight> UsageRights { get; set; } = null!;
-        public virtual DbSet<StaffOfProject> StaffOfProjects { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(GetConnectionString());
+                optionsBuilder.UseLazyLoadingProxies();
             }
         }
 
@@ -51,6 +52,8 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
             modelBuilder.Entity<Account>(entity =>
             {
                 entity.ToTable("Account");
@@ -83,28 +86,6 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                     .IsUnicode(false);
 
                 entity.Property(e => e.State).HasMaxLength(50);
-
-
-
-            });
-
-            modelBuilder.Entity<StaffOfProject>(entity =>
-            {
-                entity.HasKey(sop => new { sop.StaffId, sop.ProjectId });
-                entity.ToTable("StaffOfProject");
-
-                entity.HasOne(d => d.Staff)
-                .WithMany(p => p.StaffOfProjects)
-                .HasForeignKey(d => d.StaffId)
-                .HasConstraintName("FK_StaffOfProject_Account");
-
-
-                entity.HasOne(d => d.Project)
-                .WithMany(p => p.StaffOfProjects)
-                .HasForeignKey(d => d.ProjectId)
-                .HasConstraintName("FK_StaffOfProject_Project");
-
-
             });
 
             modelBuilder.Entity<AvailableTime>(entity =>
@@ -131,7 +112,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 
                 entity.Property(e => e.ContractDate).HasColumnType("datetime");
 
-                entity.Property(e => e.ContractName).HasMaxLength(150);
+                entity.Property(e => e.ContractName)
+                    .IsRequired()
+                    .HasMaxLength(150);
 
                 entity.Property(e => e.ContractTerm).HasColumnType("datetime");
 
@@ -161,7 +144,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
             {
                 entity.ToTable("CustomerRequest");
 
-                entity.Property(e => e.Description).HasMaxLength(255);
+                entity.Property(e => e.Description)
+                    .IsRequired()
+                    .HasMaxLength(255);
 
                 entity.Property(e => e.RequestDate).HasColumnType("datetime");
 
@@ -213,7 +198,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 
                 entity.Property(e => e.Description).HasMaxLength(255);
 
-                entity.Property(e => e.FacilityName).HasMaxLength(150);
+                entity.Property(e => e.FacilityName)
+                    .IsRequired()
+                    .HasMaxLength(150);
 
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Facilities)
@@ -246,13 +233,17 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
             {
                 entity.ToTable("Owner");
 
-                entity.Property(e => e.ContactPerson).HasMaxLength(150);
+                entity.Property(e => e.ContactPerson)
+                    .IsRequired()
+                    .HasMaxLength(150);
 
                 entity.Property(e => e.Email)
                     .HasMaxLength(150)
                     .IsUnicode(false);
 
-                entity.Property(e => e.OwnerName).HasMaxLength(150);
+                entity.Property(e => e.OwnerName)
+                    .IsRequired()
+                    .HasMaxLength(150);
 
                 entity.Property(e => e.Phone)
                     .HasMaxLength(13)
@@ -277,9 +268,6 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                 entity.Property(e => e.RegistrationOpeningDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
-
-
-
             });
 
             modelBuilder.Entity<Reservation>(entity =>
@@ -301,6 +289,25 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                     .HasForeignKey(d => d.CustomerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Reservation_Account");
+            });
+
+            modelBuilder.Entity<StaffOfProject>(entity =>
+            {
+                entity.HasKey(e => new { e.StaffId, e.ProjectId });
+
+                entity.ToTable("StaffOfProject");
+
+                entity.HasOne(d => d.Project)
+                    .WithMany(p => p.StaffOfProjects)
+                    .HasForeignKey(d => d.ProjectId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_StaffOfProject_Project");
+
+                entity.HasOne(d => d.Staff)
+                    .WithMany(p => p.StaffOfProjects)
+                    .HasForeignKey(d => d.StaffId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_StaffOfProject_Account");
             });
 
             modelBuilder.Entity<UsageHistory>(entity =>

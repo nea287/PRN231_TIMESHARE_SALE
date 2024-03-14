@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
@@ -29,9 +30,10 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
 
         [HttpGet("GetListDepartment")]
         public DynamicModelResponse.DynamicModelsResponse<DepartmentViewModel> GetListDepartment(
-            [FromQuery] DepartmentViewModel filter, [FromQuery] PagingRequest paging)
+            [FromQuery] DepartmentViewModel filter, [FromQuery] PagingRequest paging,
+            [FromQuery] DepartmentFilter orderFilter = DepartmentFilter.TotalRevenue)
         {
-            return _departmentService.GetDepartments(filter, paging);
+            return _departmentService.GetDepartments(filter, paging, orderFilter);
         }
 
         [HttpPost("CreateDepartment")]

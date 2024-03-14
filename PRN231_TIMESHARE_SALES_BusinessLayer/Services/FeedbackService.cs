@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
@@ -110,7 +111,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_feedbackRepository)
                 {
-                    result = _feedbackRepository.GetAll()
+                    result = _feedbackRepository.GetAll(includeProperties: String.Join(",",
+                                                        SupportingFeature.GetNameIncludedProperties<Feedback>()))
                         .AsQueryable()
                         .ProjectTo<FeedbackViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(filter)

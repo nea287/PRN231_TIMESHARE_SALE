@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
@@ -110,7 +111,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_ownerRepository)
                 {
-                    result = _ownerRepository.GetAll()
+                    result = _ownerRepository.GetAll(includeProperties: String.Join(",", 
+                                                     SupportingFeature.GetNameIncludedProperties<Owner>()))
                         .AsQueryable()
                         .ProjectTo<OwnerViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(filter)

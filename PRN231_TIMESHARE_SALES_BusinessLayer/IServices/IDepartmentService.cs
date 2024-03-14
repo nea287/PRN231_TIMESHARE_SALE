@@ -1,4 +1,5 @@
-﻿using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
+﻿using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
@@ -16,7 +17,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         ResponseResult<DepartmentViewModel> CreateDepartment(DepartmentRequestModel request);
         ResponseResult<DepartmentViewModel> DeleteDepartment(int id);
         ResponseResult<DepartmentViewModel> GetDepartment(int id);
-        DynamicModelResponse.DynamicModelsResponse<DepartmentViewModel> GetDepartments(DepartmentViewModel filter, PagingRequest paging);
+        DynamicModelResponse.DynamicModelsResponse<DepartmentViewModel> GetDepartments(DepartmentViewModel filter, PagingRequest paging, DepartmentFilter orderFilter);
         ResponseResult<DepartmentViewModel> UpdateDepartment(DepartmentRequestModel request, int id);
     }
 }

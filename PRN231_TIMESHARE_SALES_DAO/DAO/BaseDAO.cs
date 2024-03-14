@@ -15,7 +15,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
         private static BaseDAO<TEntity> instance = null;
         private static readonly object InstanceClock = new object();
 
-        private readonly PRN231_TimeshareSalesDBContext _context;
+        private readonly TimeshareSalesDBContext _context;
         private DbSet<TEntity> Table { get; set; }
         
         public static BaseDAO<TEntity> Instance
@@ -26,7 +26,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
                 {
                     if (instance == null)
                     {
-                        PRN231_TimeshareSalesDBContext context = new PRN231_TimeshareSalesDBContext();
+                        TimeshareSalesDBContext context = new TimeshareSalesDBContext();
                         instance = new BaseDAO<TEntity>(context);
                     }
                     return instance;
@@ -34,7 +34,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
             }
         } 
 
-        public BaseDAO(PRN231_TimeshareSalesDBContext context)
+        public BaseDAO(TimeshareSalesDBContext context)
         {
             _context = context;
             Table = context.Set<TEntity>();
@@ -75,9 +75,12 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
             return Table;
         }
 
-        public virtual IEnumerable<TEntity> GetAll(Expression<Func<TEntity, bool>>? filter = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, string? includeProperties = null)
+        public virtual IQueryable<TEntity> GetAll(
+        Expression<Func<TEntity, bool>>? filter = null,
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
+        string? includeProperties = null)
         {
-            IQueryable<TEntity> query = Table;
+            IQueryable<TEntity> query = Table.AsQueryable();
             if (filter != null)
             {
                 query = query.Where(filter);
@@ -90,12 +93,13 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
                 {
                     query = query.Include(includeProperty);
                 }
+
             }
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                return orderBy(query).AsQueryable();
             }
-            return query.ToList();
+            return query.AsQueryable();
         }
 
         public virtual async Task<TEntity> GetById(int id)

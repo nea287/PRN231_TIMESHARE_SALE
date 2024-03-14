@@ -200,24 +200,27 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             return result;
         }
 
-        public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetAccounts(AccountViewModel filter, PagingRequest paging)
+        public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetAccounts(
+            AccountViewModel filter, PagingRequest paging, AccountOrderFilter orderFilter)
         {
             (int, IQueryable<AccountViewModel>) result;
             try
             {
                 lock (_accountRepository)
                 {
-                    result = _accountRepository.GetAll(x => x.Status != 0)
+                    var data = _accountRepository.GetAll(filter: x => x.Status != 0,
+                                                includeProperties: String.Join(",",
+                                                SupportingFeature.GetNameIncludedProperties<Account>()))
                         .AsQueryable()
-                        //.Include(x => x.StaffOfProjects)
-                        //.Include(x => x.Feedbacks)
-                        //.Include(x => x.ContractCustomers)
-                        //.Include(x => x.UsageHistories)
-                        //.Include(x => x.ContractStaffs)
-                        //.Include(x => x.Reservations)
+
                         .ProjectTo<AccountViewModel>(_mapper.ConfigurationProvider)
-                        .DynamicFilter(filter)
-                        .PagingIQueryable(paging.page, paging.pageSize,
+                        .DynamicFilter(filter);
+
+                    string? colName = Enum.GetName(typeof(AccountOrderFilter), orderFilter);
+
+                    data = SupportingFeature.Sorting(data.AsEnumerable(), (SortOrder)paging.OrderType, colName).AsQueryable();
+
+                    result = data.PagingIQueryable(paging.page, paging.pageSize,
                             Constraints.LimitPaging, Constraints.DefaultPaging);
                 }
 
@@ -353,8 +356,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 lock (_accountRepository)
                 {
                     var data = _mapper.Map<AccountViewModel>(_accountRepository
-                        .FistOrDefault(x => x.Email.ToLower().Equals(email.ToLower())
-                            && x.Password.Equals(x.Password)
+                        .GetFirstOrDefault(x => x.Email.ToLower().Equals(email.ToLower())
+                            && x.Password.Equals(password)
                             && x.Status != 0));
 
                     if (data != null)
@@ -484,7 +487,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             
             return data != null? Encoding.UTF8.GetString(data) : null;
         }
-
         #endregion
     }
 }

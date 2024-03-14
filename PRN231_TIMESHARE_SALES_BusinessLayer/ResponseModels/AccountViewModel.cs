@@ -36,21 +36,15 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         public string? Email { get; set; }
         public string? Password { get; set; }
         public int? Status { get; set; }
-        //[Ignore]
+        public decimal? TotalRevenue { get; set; }
+        public decimal? TotalCommission { get; set; }
         public ICollection<ContractViewModel>? ContractCustomers { get; set; }
-        //[Ignore]
         public ICollection<ContractViewModel>? ContractStaffs { get; set; }
-        //[Ignore]
         public ICollection<CustomerRequestViewModel>? CustomerRequests { get; set; }
-        //[Ignore]
         public ICollection<FeedbackViewModel>? Feedbacks { get; set; }
-        //[Ignore]
         public ICollection<ReservationViewModel>? Reservations { get; set; }
-        //[Ignore]
         public ICollection<UsageHistoryViewModel>? UsageHistories { get; set; }
         public ICollection<StaffOfProjectsViewModel>? StaffOfProjects { get; set; }
-        //[Ignore]
         public ICollection<UsageRightViewModel>? UsageRights { get; set; }
-        //[Ignore]
     }
 }

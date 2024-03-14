@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 {
@@ -16,9 +17,10 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public DateTime ReservationDate { get; set; }
         public decimal? ReservationFee { get; set; }
         public int? Status { get; set; }
-
-        public virtual AvailableTime AvailableTime { get; set; } = null!;
-        public virtual Account Customer { get; set; } = null!;
+       // [JsonIgnore]
+        public virtual AvailableTime AvailableTime { get; set; }
+       // [JsonIgnore]
+        public virtual Account Customer { get; set; }
         public virtual ICollection<UsageRight> UsageRights { get; set; }
     }
 }

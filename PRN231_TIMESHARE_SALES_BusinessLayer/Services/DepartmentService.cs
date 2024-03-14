@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
@@ -103,18 +104,24 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         }
         #endregion
         #region Get list department
-        public DynamicModelResponse.DynamicModelsResponse<DepartmentViewModel> GetDepartments(DepartmentViewModel filter, PagingRequest paging)
+        public DynamicModelResponse.DynamicModelsResponse<DepartmentViewModel> GetDepartments(DepartmentViewModel filter, PagingRequest paging, DepartmentFilter orderFilter)
         {
-            (int, IQueryable<DepartmentViewModel>) result;
+            (int, IQueryable<DepartmentViewModel>) result = (0, new List<DepartmentViewModel>().AsQueryable());
             try
             {
                 lock (_departmentRepository)
                 {
-                    result = _departmentRepository.GetAll(x => x.Status != 0)
+                    var data = _departmentRepository.GetAll(filter: x => x.Status != 0,
+                                                  includeProperties: String.Join(",",
+                                                  SupportingFeature.GetNameIncludedProperties<Department>()))
                         .AsQueryable()
                         .ProjectTo<DepartmentViewModel>(_mapper.ConfigurationProvider)
-                        .DynamicFilter(filter)
-                        .PagingIQueryable(paging.page, paging.pageSize,
+                        .DynamicFilter(filter);
+
+                    string? colName = Enum.GetName(typeof(DepartmentFilter), orderFilter);
+                    data = SupportingFeature.Sorting(data.AsEnumerable(), (SortOrder)paging.OrderType, colName).AsQueryable();
+
+                    result = data.PagingIQueryable(paging.page, paging.pageSize,
                             Constraints.LimitPaging, Constraints.DefaultPaging);
                 }
 
@@ -137,7 +144,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                     Size = paging.pageSize,
                     Total = result.Item1
                 },
-                Results = result.Item2.ToList()
+                Results = result.Item2 == null? new List<DepartmentViewModel>() : result.Item2.ToList()
             };
         }
         #endregion

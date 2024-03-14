@@ -10,7 +10,7 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
 {
     public class DepartmentDAO : BaseDAO<Department>, IDepartmentDAO
     {
-        public DepartmentDAO(PRN231_TimeshareSalesDBContext context) : base(context)
+        public DepartmentDAO(TimeshareSalesDBContext context) : base(context)
         {
         }
     }

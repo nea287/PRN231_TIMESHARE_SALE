@@ -7,11 +7,13 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
     [EnableCors("AllowAnyOrigins")]
     [Route("api/[controller]")]
+    [Authorize(Policy = "RequiredAdminOrStaff")]
     [ApiController]
     public class StaffOfProjectController : ControllerBase
     {

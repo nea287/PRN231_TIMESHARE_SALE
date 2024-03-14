@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
@@ -11,6 +13,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
     [EnableCors("AllowAnyOrigins")]
     [Route("api/[controller]")]
+    [Authorize(Policy = "RequiredAdminOrStaff")]
     [ApiController]
     public class ProjectController : ControllerBase
     {
@@ -29,9 +32,10 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
 
         [HttpGet("GetListProject")]
         public DynamicModelResponse.DynamicModelsResponse<ProjectViewModel> GetListProject(
-            [FromQuery] ProjectViewModel filter,[FromQuery] PagingRequest paging)
+            [FromQuery] ProjectViewModel filter,[FromQuery] PagingRequest paging, 
+            [FromQuery] ProjectOrderFilter orderFilter = ProjectOrderFilter.TotalRevenue)
         {
-            return _projectService.GetProjects(filter, paging);
+            return _projectService.GetProjects(filter, paging, orderFilter);
         }
 
         [HttpPost("CreateProject")]

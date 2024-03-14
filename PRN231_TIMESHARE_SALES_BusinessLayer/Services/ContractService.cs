@@ -13,6 +13,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper.QueryableExtensions;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
 {
@@ -157,7 +158,9 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_contractRepository)
                 {
-                    result = _contractRepository.GetAll(x => x.Status != 0)
+                    result = _contractRepository.GetAll(filter: x => x.Status != 0,
+                                                 includeProperties: String.Join(",", 
+                                                 SupportingFeature.GetNameIncludedProperties<Contract>()))
                             .AsQueryable()
                             .ProjectTo<ContractViewModel>(_mapper.ConfigurationProvider)
                             .DynamicFilter(filter)

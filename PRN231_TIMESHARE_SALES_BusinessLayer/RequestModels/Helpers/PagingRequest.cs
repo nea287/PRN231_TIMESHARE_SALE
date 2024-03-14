@@ -11,5 +11,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers
     {
         public int page { get; set; } = 1;
         public int pageSize { get; set; } = 10;
+        public SortOrder OrderType { get; set; } = SortOrder.Ascending;
     }
 }
