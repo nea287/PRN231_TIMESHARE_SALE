@@ -8,6 +8,7 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using Microsoft.AspNetCore.Authorization;
 using PRN231_TIMESHARE_SALES_DataLayer.Models;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
@@ -31,9 +32,10 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         [Authorize(Policy = "RequiredAdminOrStaff")]
         [HttpGet("GetListAccount")]
         public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetListAccount(
-            [FromQuery] AccountViewModel filter, [FromQuery] PagingRequest paging)
+            [FromQuery] AccountViewModel filter, [FromQuery] PagingRequest paging,
+            [FromQuery] AccountOrderFilter orderFilter = AccountOrderFilter.AccountId)
         {
-            return _accountService.GetAccounts(filter, paging);
+            return _accountService.GetAccounts(filter, paging, orderFilter);
         }
 
         [HttpPost("CreateAccount")]

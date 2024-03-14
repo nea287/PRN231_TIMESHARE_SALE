@@ -10,9 +10,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public int CustomerId { get; set; }
         public int ReservationId { get; set; }
         public int? Status { get; set; }
-        [JsonIgnore]
+       // [JsonIgnore]
         public virtual Account Customer { get; set; }
-        [JsonIgnore]
+       // [JsonIgnore]
         public virtual Reservation Reservation { get; set; }
     }
 }

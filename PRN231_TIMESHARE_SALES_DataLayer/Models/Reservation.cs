@@ -17,9 +17,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public DateTime ReservationDate { get; set; }
         public decimal? ReservationFee { get; set; }
         public int? Status { get; set; }
-        [JsonIgnore]
+       // [JsonIgnore]
         public virtual AvailableTime AvailableTime { get; set; }
-        [JsonIgnore]
+       // [JsonIgnore]
         public virtual Account Customer { get; set; }
         public virtual ICollection<UsageRight> UsageRights { get; set; }
     }

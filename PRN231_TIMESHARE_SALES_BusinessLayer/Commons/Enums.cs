@@ -6,6 +6,68 @@ using System.Threading.Tasks;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
 {
+    #region filter order
+
+    public enum SortOrder
+    {
+        Ascending,
+        Descending,
+    }
+
+    public enum AccountOrderFilter
+    {
+        AccountId,
+        FirstName,
+        LastName,
+        FullName,
+        Phone,
+        City,
+        State,
+        Country,
+        Address,
+        Role,
+        Email,
+        Password,
+        Status,
+        TotalRevenue,
+        TotalCommission,
+
+    }
+
+    public enum ProjectOrderFilter
+    {
+        ProjectId,
+        ProjectName,
+        PriorityType,
+        ProjectCode,
+        TotalSlot,
+        StartDate,
+        EndDate,
+        Status,
+        RegistrationEndDate,
+        RegistrationOpeningDate,
+        TotalRevenue
+    }
+
+    public enum DepartmentFilter
+    {
+        DepartmentId,
+        DepartmentName,
+        ProjectId,
+        OwnerId,
+        Address,
+        City,
+        State,
+        Country,
+        Floors,
+        Price,
+        ConstructionType,
+        Description,
+        Status,
+        Capacity,
+        TotalRevenue,
+    }
+    #endregion
     public enum AccountRole
     {
         NULL, 

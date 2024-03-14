@@ -114,21 +114,30 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         }
         #endregion
         #region Get list project
-        public DynamicModelResponse.DynamicModelsResponse<ProjectViewModel> GetProjects(ProjectViewModel filter, PagingRequest paging)
+        public DynamicModelResponse.DynamicModelsResponse<ProjectViewModel> GetProjects(
+            ProjectViewModel filter, PagingRequest paging, ProjectOrderFilter orderFilter)
         {
             (int, IQueryable<ProjectViewModel>) result;
             try
             {
                 lock (_projectRepository)
                 {
-                    result = _projectRepository.GetAll(filter: x => x.Status != 0,
-                                                includeProperties: String.Join(",", 
-                                                               SupportingFeature.GetNameIncludedProperties<Project>()))
+
+
+
+                    var data = _projectRepository.GetAll(filter: x => x.Status != 0,
+                                                includeProperties: String.Join(",",
+                                                               SupportingFeature.GetNameIncludedProperties<Project>())
+                                                )
                         .AsQueryable()
                         .ProjectTo<ProjectViewModel>(_mapper.ConfigurationProvider)
-                        .DynamicFilter(filter)
-                        .PagingIQueryable(paging.page, paging.pageSize,
-                            Constraints.LimitPaging, Constraints.DefaultPaging);
+                        .DynamicFilter(filter);
+
+                    string? getName = Enum.GetName(typeof(ProjectOrderFilter), orderFilter);
+
+                    data = SupportingFeature.Sorting(data.AsEnumerable(), (SortOrder)paging.OrderType, getName).AsQueryable();
+                    result = data.PagingIQueryable(paging.page, paging.pageSize,
+                                  Constraints.LimitPaging, Constraints.DefaultPaging);
                 }
 
 
@@ -154,11 +163,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             };
         }
         #endregion
-        //#region Get Income statistics
-        //public DynamicModelResponse.DynamicModelsResponse<ProjectViewModel> GetInComeStatistics()
-        //{
-
-        //}
         #endregion
 
         #region Update

@@ -21,11 +21,11 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public decimal? CommissionAmount { get; set; }
         public int? NumberYears { get; set; }
         public int? NumberMonths { get; set; }
-        [JsonIgnore]
+        //JsonIgnore]
         public virtual AvailableTime AvailableTime { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Account Customer { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Account Staff { get; set; }
     }
 }

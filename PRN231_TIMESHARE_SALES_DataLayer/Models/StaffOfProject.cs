@@ -6,9 +6,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
     {
         public int StaffId { get; set; }
         public int ProjectId { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Project Project { get; set; }
-        [JsonIgnore]
+        //[JsonIgnore]
         public virtual Account Staff { get; set; }
     }
 }

@@ -17,25 +17,26 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         {
         }
 
-        public virtual DbSet<Account> Accounts { get; set; }
-        public virtual DbSet<AvailableTime> AvailableTimes { get; set; }
-        public virtual DbSet<Contract> Contracts { get; set; }
-        public virtual DbSet<CustomerRequest> CustomerRequests { get; set; }
-        public virtual DbSet<Department> Departments { get; set; }
-        public virtual DbSet<Facility> Facilities { get; set; }
-        public virtual DbSet<Feedback> Feedbacks { get; set; }
-        public virtual DbSet<Owner> Owners { get; set; }
-        public virtual DbSet<Project> Projects { get; set; }
-        public virtual DbSet<Reservation> Reservations { get; set; }
-        public virtual DbSet<StaffOfProject> StaffOfProjects { get; set; }
-        public virtual DbSet<UsageHistory> UsageHistories { get; set; }
-        public virtual DbSet<UsageRight> UsageRights { get; set; }
+        public virtual DbSet<Account> Accounts { get; set; } = null!;
+        public virtual DbSet<AvailableTime> AvailableTimes { get; set; } = null!;
+        public virtual DbSet<Contract> Contracts { get; set; } = null!;
+        public virtual DbSet<CustomerRequest> CustomerRequests { get; set; } = null!;
+        public virtual DbSet<Department> Departments { get; set; } = null!;
+        public virtual DbSet<Facility> Facilities { get; set; } = null!;
+        public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
+        public virtual DbSet<Owner> Owners { get; set; } = null!;
+        public virtual DbSet<Project> Projects { get; set; } = null!;
+        public virtual DbSet<Reservation> Reservations { get; set; } = null!;
+        public virtual DbSet<StaffOfProject> StaffOfProjects { get; set; } = null!;
+        public virtual DbSet<UsageHistory> UsageHistories { get; set; } = null!;
+        public virtual DbSet<UsageRight> UsageRights { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
                 optionsBuilder.UseSqlServer(GetConnectionString());
+                optionsBuilder.UseLazyLoadingProxies();
             }
         }
 
@@ -172,9 +173,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 
                 entity.Property(e => e.Country).HasMaxLength(50);
 
-                entity.Property(e => e.DepartmentName)
-                    .IsRequired()
-                    .HasMaxLength(150);
+                entity.Property(e => e.DepartmentName).HasMaxLength(150);
 
                 entity.Property(e => e.Description).HasMaxLength(255);
 

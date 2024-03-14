@@ -200,21 +200,27 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             return result;
         }
 
-        public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetAccounts(AccountViewModel filter, PagingRequest paging)
+        public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetAccounts(
+            AccountViewModel filter, PagingRequest paging, AccountOrderFilter orderFilter)
         {
             (int, IQueryable<AccountViewModel>) result;
             try
             {
                 lock (_accountRepository)
                 {
-                    result = _accountRepository.GetAll(filter: x => x.Status != 0,
-                                                includeProperties: String.Join(",", 
+                    var data = _accountRepository.GetAll(filter: x => x.Status != 0,
+                                                includeProperties: String.Join(",",
                                                 SupportingFeature.GetNameIncludedProperties<Account>()))
                         .AsQueryable()
 
                         .ProjectTo<AccountViewModel>(_mapper.ConfigurationProvider)
-                        .DynamicFilter(filter)
-                        .PagingIQueryable(paging.page, paging.pageSize,
+                        .DynamicFilter(filter);
+
+                    string? colName = Enum.GetName(typeof(AccountOrderFilter), orderFilter);
+
+                    data = SupportingFeature.Sorting(data.AsEnumerable(), (SortOrder)paging.OrderType, colName).AsQueryable();
+
+                    result = data.PagingIQueryable(paging.page, paging.pageSize,
                             Constraints.LimitPaging, Constraints.DefaultPaging);
                 }
 

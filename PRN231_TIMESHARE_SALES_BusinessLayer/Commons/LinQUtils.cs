@@ -21,7 +21,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
                 var propertyVal = entity.GetType().GetProperty(item.Name).GetValue(entity, null);
                 if (propertyVal == null) continue;
                 if (item.CustomAttributes.Any(a => a.AttributeType == typeof(SkipAttribute))) continue;
-                bool isDateTime = item.PropertyType == typeof(DateTime);
+                bool isDateTime = typeof(DateTime).IsAssignableFrom(item.PropertyType) || typeof(DateTime?).IsAssignableFrom(item.PropertyType);
                 if (isDateTime)
                 {
                     DateTime dt = (DateTime)propertyVal;
@@ -78,8 +78,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
             if (page < 1)
             {
                 page = 1;
-            }
-            int total = source.Count();
+            };
+            int total = source == null? 0 : source.Count();
             IQueryable<TResult> results = source
                 .Skip((page - 1) * size)
                 .Take(size);

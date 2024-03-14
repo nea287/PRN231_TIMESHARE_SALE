@@ -1,9 +1,17 @@
-﻿using MailKit.Net.Smtp;
+﻿
+using MailKit.Net.Smtp;
 using Microsoft.Extensions.Caching.Distributed;
 using MimeKit;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
 using System.Text;
 using System.Collections;
+using System;
+using System.Linq.Expressions;
+using System.Reflection;
+using Microsoft.EntityFrameworkCore.Storage;
+using Newtonsoft.Json.Serialization;
+using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using System.Runtime.CompilerServices;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Helpers
 {
@@ -69,5 +77,56 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Helpers
                 .Where(x => x.PropertyType.GetGenericTypeDefinition() == typeof(ICollection<>))
                 .Select(p => p.Name);
         }
+
+        public static Expression<Func<TEntity, TKey>> GetPropertyExpression<TEntity, TKey>(string propertyName)
+        {
+            var parameter = Expression.Parameter(typeof(object), "p");
+            var property = Expression.Property(Expression.Convert(parameter, typeof(TEntity)), propertyName);
+            var convert = Expression.Convert(property, typeof(object));
+
+            return Expression.Lambda<Func<TEntity, TKey>>(convert, parameter);
+        }
+
+        public static Type GetTypeProperty<T>(string propertyName)
+        {
+            return typeof(T).GetProperties().First(p => p.Name.Equals(propertyName)).PropertyType;
+        }
+
+        public static IEnumerable<T> Sorting<T>(IEnumerable<T> searchResult, SortOrder sortType, string colName)
+        {
+            if (sortType == SortOrder.Ascending)
+            {
+                return searchResult.OrderBy(item => typeof(T).GetProperties().First(x => x.Name.Equals(colName, StringComparison.CurrentCultureIgnoreCase)).GetValue(item)).AsQueryable();
+            }
+            else if (sortType == SortOrder.Descending)
+            {
+                return searchResult.OrderByDescending(item => typeof(T).GetProperties().First(x => x.Name.Equals(colName, StringComparison.CurrentCultureIgnoreCase)).GetValue(item)).AsQueryable();
+            }
+            else
+            {
+                return searchResult;
+            }
+        }
+
+        //public static IEnumerable<T> GetFilterByDate<T>(IEnumerable<T> source, DateTime? startDate, DateTime? endDate)
+        //{
+        //    if (startDate == null)
+        //    {
+        //        startDate = DateTime.Now.AddDays(1);
+        //    }
+        //    else if(endDate == null)
+        //    {
+        //        endDate = DateTime.Now.AddDays(1);
+        //    }else if(startDate > endDate)
+        //    {
+        //        DateTime date = startDate.Value;
+        //        startDate = endDate;
+        //        endDate = date;
+        //    }
+
+        //    return source.Where(x => x.);
+        //}
+
+
     }
 }

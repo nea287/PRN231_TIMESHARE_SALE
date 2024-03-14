@@ -75,12 +75,12 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
             return Table;
         }
 
-        public virtual IEnumerable<TEntity> GetAll(
+        public virtual IQueryable<TEntity> GetAll(
         Expression<Func<TEntity, bool>>? filter = null,
         Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null,
         string? includeProperties = null)
         {
-            IQueryable<TEntity> query = Table;
+            IQueryable<TEntity> query = Table.AsQueryable();
             if (filter != null)
             {
                 query = query.Where(filter);
@@ -97,9 +97,9 @@ namespace PRN231_TIMESHARE_SALES_DAO.DAO
             }
             if (orderBy != null)
             {
-                return orderBy(query).ToList();
+                return orderBy(query).AsQueryable();
             }
-            return query.ToList();
+            return query.AsQueryable();
         }
 
         public virtual async Task<TEntity> GetById(int id)
