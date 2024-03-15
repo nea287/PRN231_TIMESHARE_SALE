@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         [DataType(DataType.DateTime)]
         public DateTime? CheckInDate { get; set; }
         [DataType(DataType.DateTime)]
-        [Compare("CheckInDate", ErrorMessage = "EndDate must be greater than CheckInDate.")]
+        [GreaterThanOrEqualDate("CheckInDate", ErrorMessage = "The end date must be greater than the check in out.")]
         public DateTime? CheckOutDate { get; set; }
         public int? Status { get; set; }
         [Required(ErrorMessage = "Please enter DepartmentId")]
