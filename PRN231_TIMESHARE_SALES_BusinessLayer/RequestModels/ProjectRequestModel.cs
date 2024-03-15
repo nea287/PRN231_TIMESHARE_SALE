@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
 {
@@ -22,7 +18,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         public DateTime? StartDate { get; set; }
 
         [DataType(DataType.DateTime)]
-        [Compare("StartDate", ErrorMessage ="End date must be greater than start date")]
+        [GreaterThanDate("StartDate", ErrorMessage ="End date must be greater than start date")]
         public DateTime? EndDate { get; set; }
         public int? Status { get; set; }
 
@@ -30,7 +26,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         public DateTime? RegistrationEndDate { get; set; }
 
         [DataType(DataType.DateTime)]
-        [Compare("RegistrationEndDate", ErrorMessage = "Registration opening date must greater than Registration end date!")]
+        [LessThanDate("RegistrationEndDate", ErrorMessage = "Registration opening date must less than Registration end date!")]
         public DateTime? RegistrationOpeningDate { get; set; }
     }
 }

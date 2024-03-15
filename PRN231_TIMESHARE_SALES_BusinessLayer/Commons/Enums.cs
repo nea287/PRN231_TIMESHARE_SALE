@@ -7,7 +7,21 @@ using System.Threading.Tasks;
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
 {
     #region filter order
-
+    public enum Month
+    {
+        January = 1,
+        February,
+        March,
+        April,
+        May,
+        June,
+        July,
+        August,
+        September,
+        October,
+        November,
+        December,
+    }
     public enum SortOrder
     {
         Ascending,
@@ -70,7 +84,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
     #endregion
     public enum AccountRole
     {
-        NULL, 
+        NULL,
         ADMIN,
         STAFF,
         CUSTOMER
@@ -80,15 +94,15 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
     {
         DISABLED, //Tắt
         INACTIVE,
-        ACTIVE, 
+        ACTIVE,
         SUSPENDED, //tạm ngưng
         LOCKED,
         PENDING_ACTIVATION, //Chờ kích hoạt
-        CLOSED, 
+        CLOSED,
         RESTRICTED, //Hạn chế
         EXPIRED, //Hết hạn
         PENDING_APPROVAL, //Chờ duyệt
-        
+
     }
 
     public enum ProjectStatus
@@ -109,10 +123,10 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
     }
 
     public enum AvailableStatus
-    {       
-        UNAVAILABLE, 
+    {
+        UNAVAILABLE,
         AVAILABLE,
-        BUSY, 
+        BUSY,
         FREE,
         BOOKED,
         RESERVED,
@@ -202,7 +216,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
         INACTIVE,
         ACTIVE,
         PENDING_APPROVAL,
-        APPROVED, 
+        APPROVED,
         REJECTED, //bị từ chối
         SUSPENDED, //Đình chỉ
         TERMINATED, // Chấm dứt
@@ -237,8 +251,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
 
     public enum UsageRightStatus
     {
-        DISABLE, 
-        ACTIVE, 
+        DISABLE,
+        ACTIVE,
         INACTIVE,
         EXPIRED, //hết hạn
         REVOKED, //thu hồi
