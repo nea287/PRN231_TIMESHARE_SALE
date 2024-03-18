@@ -231,6 +231,15 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 Results = result.Item2.ToList()
             };
         }
+
+        #region GetUsageHistoryStatus
+        public EnumViewModel GetUsageHistoryStatus() => new EnumViewModel()
+        {
+            Message = Constraints.INFORMATION,
+            Results = SupportingFeature.Instance.GetEnumName<UsageHistoryStatus>()
+        };
+        #endregion
+
         #endregion
 
         #region Update

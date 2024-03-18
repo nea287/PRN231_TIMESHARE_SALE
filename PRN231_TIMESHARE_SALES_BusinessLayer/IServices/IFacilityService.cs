@@ -18,5 +18,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         ResponseResult<FacilityViewModel> GetFacility(int id);
         DynamicModelResponse.DynamicModelsResponse<FacilityViewModel> GetFacilitys(FacilityViewModel filter, PagingRequest paging);
         ResponseResult<FacilityViewModel> UpdateFacility(FacilityRequestModel request, int id);
+        public EnumViewModel GetFacilityType();
     }
 }

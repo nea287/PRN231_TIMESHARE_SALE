@@ -143,6 +143,15 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             };
         }
         #endregion
+
+        #region GetFacilityType
+        public EnumViewModel GetFacilityType() => new EnumViewModel()
+        {
+            Message = Constraints.INFORMATION,
+            Results = SupportingFeature.Instance.GetEnumName<FacilityType>(),
+        };
+        #endregion
+
         #endregion
 
         #region Update

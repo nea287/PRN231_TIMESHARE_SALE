@@ -143,6 +143,15 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             };
         }
         #endregion
+
+        #region GetOwnerStatus
+        public EnumViewModel GetOwnerStatus() => new EnumViewModel()
+        {
+            Message = Constraints.INFORMATION,
+            Results = SupportingFeature.Instance.GetEnumName<OwnerStatus>()
+        };
+        #endregion
+
         #endregion
 
         #region Update

@@ -19,6 +19,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         public ResponseResult<UsageHistoryViewModel> DeleteUsageHistoryById(int id);
         public ResponseResult<UsageHistoryViewModel> DeleteUsageHistory(int customerId, int depId);
         public ResponseResult<UsageHistoryViewModel> CreateUsageHistory(UsageHistoryRequestModel request);
+        public EnumViewModel GetUsageHistoryStatus();
 
     }
 }

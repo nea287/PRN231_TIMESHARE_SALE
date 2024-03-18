@@ -19,5 +19,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         ResponseResult<DepartmentViewModel> GetDepartment(int id);
         DynamicModelResponse.DynamicModelsResponse<DepartmentViewModel> GetDepartments(DepartmentViewModel filter, PagingRequest paging, DepartmentFilter orderFilter);
         ResponseResult<DepartmentViewModel> UpdateDepartment(DepartmentRequestModel request, int id);
+        public EnumViewModel GetDepartmentConstructionTypes();
+        public EnumViewModel GetDepartmentStatuses();
     }
 }

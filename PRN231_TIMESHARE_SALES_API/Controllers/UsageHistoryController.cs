@@ -65,5 +65,8 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return _usageService.DeleteUsageHistory(cusId, depId);
         }
+
+        [HttpGet("GetUsageHistoryStatus")]
+        public EnumViewModel GetUsageHistoryStatus() => _usageService.GetUsageHistoryStatus();
     }
 }

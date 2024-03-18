@@ -163,6 +163,17 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             };
         }
         #endregion
+
+        #region PriorityTypeProject
+        public EnumViewModel GetPriorityTypeProject() =>
+            new EnumViewModel()
+            {
+                Message = Constraints.INFORMATION,
+                Results = SupportingFeature.Instance.GetEnumName<PriorityTypeProject>()
+            };
+
+        #endregion
+
         #endregion
 
         #region Update

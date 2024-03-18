@@ -54,5 +54,17 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return _departmentService.DeleteDepartment(id);
         }
+
+        [HttpGet("GetDepartmentConstructionType")]
+        public EnumViewModel GetDepartmentConstructionType()
+        {
+            return _departmentService.GetDepartmentConstructionTypes();
+        }
+
+        [HttpGet("GetDepartmentStatuses")]
+        public EnumViewModel GetDepartmentStatuses()
+        {
+            return _departmentService.GetDepartmentStatuses();
+        }
     }
 }

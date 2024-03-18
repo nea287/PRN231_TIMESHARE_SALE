@@ -17,5 +17,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         ResponseResult<OwnerViewModel> GetOwner(int id);
         DynamicModelResponse.DynamicModelsResponse<OwnerViewModel> GetOwners(OwnerViewModel filter, PagingRequest paging);
         ResponseResult<OwnerViewModel> UpdateOwner(OwnerRequestModel request, int id);
+        public EnumViewModel GetOwnerStatus();
     }
 }

@@ -18,7 +18,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
     [Authorize]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountService _accountService;  
+        private readonly IAccountService _accountService;
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
@@ -70,6 +70,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
             return _accountService.DeleteAccountByEmail(email);
         }
 
-
+        [HttpGet("GetCustomerRequestType")]
+        public EnumViewModel GetCustomerRequestType() => _accountService.GetCustomerRequestType();
     }
 }

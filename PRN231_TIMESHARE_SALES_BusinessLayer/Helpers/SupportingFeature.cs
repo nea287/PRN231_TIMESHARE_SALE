@@ -13,6 +13,7 @@ using Newtonsoft.Json.Serialization;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 using System.Runtime.CompilerServices;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Helpers
 {
@@ -122,6 +123,18 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Helpers
             }
 
             return otherProperty;
+        }
+
+        public Dictionary<int, string> GetEnumName<TEnum>()
+        {
+            Dictionary<int, string> enumValues = new Dictionary<int, string>();
+
+            foreach (int e in Enum.GetValues(typeof(TEnum)))
+            {
+                enumValues.Add(e, Enum.GetName(typeof(TEnum), e));
+            }
+
+            return enumValues;  
         }
     }
 }
