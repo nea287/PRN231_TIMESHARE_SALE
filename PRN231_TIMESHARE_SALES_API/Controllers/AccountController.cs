@@ -29,8 +29,8 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return _accountService.GetAccountById(id);
         }
-        [Authorize(Policy = "RequiredAdminOrStaff")]
         [HttpGet("GetListAccount")]
+        [AllowAnonymous]
         public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetListAccount(
             [FromQuery] AccountViewModel filter, [FromQuery] PagingRequest paging,
             [FromQuery] AccountOrderFilter orderFilter = AccountOrderFilter.AccountId)
