@@ -18,6 +18,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Owner Id is Invalid!")]
         public int? OwnerId { get; set; }
         public string? Address { get; set; }
+        public string? DepartmentProjectCode { get; set; }
         public string? City { get; set; }
         public string? State { get; set; }
         public string? Country { get; set; }

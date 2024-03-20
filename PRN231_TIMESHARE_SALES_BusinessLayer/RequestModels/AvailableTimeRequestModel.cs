@@ -15,8 +15,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         [GreaterThanDate(nameof(StartDate), ErrorMessage = "The end date must greater than or equal to the start date.")]
         public DateTime? EndDate { get; set; }
         public int? Status { get; set; }
+        public string? DepartmentProjectCode { get; set; }
 
-        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Department Id is Invalid!")]
-        public int? DepartmentId { get; set; }
     }
 }

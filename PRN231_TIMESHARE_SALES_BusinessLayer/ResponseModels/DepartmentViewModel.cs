@@ -17,7 +17,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
 
         public int? DepartmentId { get; set; }
         public string? DepartmentName { get; set; }
-        public int? ProjectId { get; set; }
         public int? OwnerId { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }

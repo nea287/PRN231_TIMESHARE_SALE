@@ -36,7 +36,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_availableTimeRepository)
                 {
-                    if (_availableTimeRepository.Any(x => x.DepartmentId == request.DepartmentId
+                    if (_availableTimeRepository.Any(x => x.DepartmentProjectCode == request.DepartmentProjectCode
                         && x.StartDate == request.StartDate && x.Status != 0) == true)
                     {
                         return new ResponseResult<AvailableTimeViewModel>()

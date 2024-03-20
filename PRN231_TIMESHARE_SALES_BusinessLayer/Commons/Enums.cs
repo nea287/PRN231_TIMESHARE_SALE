@@ -67,7 +67,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
     {
         DepartmentId,
         DepartmentName,
-        ProjectId,
         OwnerId,
         Address,
         City,

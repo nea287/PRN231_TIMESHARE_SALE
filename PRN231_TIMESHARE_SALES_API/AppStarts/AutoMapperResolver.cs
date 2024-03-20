@@ -16,8 +16,8 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             CreateMap<Project, ProjectViewModel>()
                 .ForMember(x => x.TotalRevenue, dest =>
                     dest.MapFrom(opt =>
-                          opt.DepartmentOfProjects.Select(x => x.Department)
-                          .SelectMany(t => t.AvailableTimes)
+                          opt.DepartmentOfProjects
+                          .SelectMany(x => x.AvailableTimes)
                           .SelectMany(a => a.Contracts)
                           .Sum(t => t.ContractAmount)))
                 .ReverseMap();
