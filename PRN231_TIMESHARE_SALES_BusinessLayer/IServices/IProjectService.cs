@@ -18,5 +18,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         public ResponseResult<ProjectViewModel> DeleteProject(int id);
         public ResponseResult<ProjectViewModel> GetProject(int id);
         public DynamicModelResponse.DynamicModelsResponse<ProjectViewModel> GetProjects(ProjectViewModel filter, PagingRequest paging, ProjectOrderFilter orderFilter);
+        public EnumViewModel GetPriorityTypeProject();
     }
 }

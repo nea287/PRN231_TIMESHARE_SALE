@@ -17,5 +17,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         public ResponseResult<ContractViewModel> CreateContract(ContractRequestModel request);
         public ResponseResult<ContractViewModel> UpdateContract(ContractRequestModel request, int id);
         public ResponseResult<ContractViewModel> DeleteContract(int id);
+        public EnumViewModel GetConstractType();
     }
 }

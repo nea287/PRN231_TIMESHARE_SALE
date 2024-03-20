@@ -247,6 +247,14 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             };
         }
 
+        #region GetCustomerRequestType
+        public EnumViewModel GetCustomerRequestType() => new EnumViewModel()
+        {
+            Message = Constraints.INFORMATION,
+            Results = SupportingFeature.Instance.GetEnumName<CustomerRequestType>()
+        };
+        #endregion
+
         #endregion
 
         #region Update

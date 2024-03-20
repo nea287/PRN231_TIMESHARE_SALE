@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Cors;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
@@ -29,6 +30,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         }
 
         [HttpGet("GetListDepartment")]
+        [AllowAnonymous]
         public DynamicModelResponse.DynamicModelsResponse<DepartmentViewModel> GetListDepartment(
             [FromQuery] DepartmentViewModel filter, [FromQuery] PagingRequest paging,
             [FromQuery] DepartmentFilter orderFilter = DepartmentFilter.TotalRevenue)
@@ -53,6 +55,18 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         public ResponseResult<DepartmentViewModel> DeleteDepartment(int id)
         {
             return _departmentService.DeleteDepartment(id);
+        }
+
+        [HttpGet("GetDepartmentConstructionType")]
+        public EnumViewModel GetDepartmentConstructionType()
+        {
+            return _departmentService.GetDepartmentConstructionTypes();
+        }
+
+        [HttpGet("GetDepartmentStatuses")]
+        public EnumViewModel GetDepartmentStatuses()
+        {
+            return _departmentService.GetDepartmentStatuses();
         }
     }
 }

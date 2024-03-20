@@ -53,8 +53,10 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
 
         [HttpDelete("DeleteProject/{id}")]
         public ResponseResult<ProjectViewModel> DeleteProject(int id)
-        {
-            return _projectService.DeleteProject(id);
-        }
+            => _projectService.DeleteProject(id);
+
+        [HttpGet("GetPriorityTypeProject")]
+        public EnumViewModel GetPriorityTypeProject() 
+            => _projectService.GetPriorityTypeProject();
     }
 }

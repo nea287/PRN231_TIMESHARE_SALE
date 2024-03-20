@@ -186,6 +186,14 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             };
         }
 
+        #region GetReservationStatus
+        public EnumViewModel GetReservationStatus() => new EnumViewModel()
+        {
+            Message = Constraints.INFORMATION,
+            Results = SupportingFeature.Instance.GetEnumName<ReservationStatus>()
+        };
+        #endregion
+
         #endregion
 
         #region Update

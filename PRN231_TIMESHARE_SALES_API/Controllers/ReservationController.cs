@@ -6,6 +6,7 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.IServices;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
+using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Services;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
@@ -52,5 +53,8 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return Ok(_service.DeleteReservation(id));  
         }
+
+        [HttpGet("GetReservationStatus")]
+        public EnumViewModel GetReservationStatus() => _service.GetReservationStatus();
     }
 }

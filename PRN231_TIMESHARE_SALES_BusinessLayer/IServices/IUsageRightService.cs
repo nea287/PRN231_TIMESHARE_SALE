@@ -17,5 +17,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         public ResponseResult<UsageRightViewModel> CreateUsageRight(UsageRightRequestModel request);
         public ResponseResult<UsageRightViewModel> UpdateUsageRight(UsageRightRequestModel request, int id);
         public ResponseResult<UsageRightViewModel> DeleteUsageRight(int id);
+        public EnumViewModel GetUsageRightStatus();
     }
 }

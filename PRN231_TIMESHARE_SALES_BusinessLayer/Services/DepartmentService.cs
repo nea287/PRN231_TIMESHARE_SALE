@@ -148,6 +148,25 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             };
         }
         #endregion
+
+        #region GetDepartmentConstructionType
+        public EnumViewModel GetDepartmentConstructionTypes() =>
+            new EnumViewModel()
+            {
+                Message = Constraints.INFORMATION,
+                Results = SupportingFeature.Instance.GetEnumName<DepartmentConstructionType>()
+            };
+        #endregion
+
+        #region GetDepartmentStatus
+        public EnumViewModel GetDepartmentStatuses() => 
+            new EnumViewModel()
+            {
+                Message = Constraints.INFORMATION,
+                Results = SupportingFeature.Instance.GetEnumName<DepartmentStatus>()
+            };
+        #endregion
+
         #endregion
 
         #region Update

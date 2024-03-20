@@ -52,6 +52,8 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             services.AddScoped<IFeedbackRepository, FeedbackRepository>();
             services.AddScoped<IFeedbackService, FeedbackService>();
 
+            services.AddScoped<IDashboardService, DashboardService>();
+
         }
     }
 }

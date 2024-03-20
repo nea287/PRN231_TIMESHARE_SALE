@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -9,12 +10,12 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
 {
     public class AvailableTimeRequestModel
     {
-        [DataType(DataType.DateTime)]
         public DateTime? StartDate { get; set; }
-        [DataType(DataType.DateTime)]
-        [Compare("StartDate", ErrorMessage = "End date must be greater than start date")]
+
+        [GreaterThanDate(nameof(StartDate), ErrorMessage = "The end date must greater than or equal to the start date.")]
         public DateTime? EndDate { get; set; }
         public int? Status { get; set; }
+
         [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Department Id is Invalid!")]
         public int? DepartmentId { get; set; }
     }

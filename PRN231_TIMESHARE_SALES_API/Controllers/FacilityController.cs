@@ -52,5 +52,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return _facilityService.DeleteFacility(id);
         }
+        [HttpGet("GetFacilityType")]
+        public EnumViewModel GetFacilityType() => _facilityService.GetFacilityType();
     }
 }

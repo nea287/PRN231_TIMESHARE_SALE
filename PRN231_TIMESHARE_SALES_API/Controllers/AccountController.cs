@@ -18,7 +18,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
     [Authorize]
     public class AccountController : ControllerBase
     {
-        private readonly IAccountService _accountService;  
+        private readonly IAccountService _accountService;
         public AccountController(IAccountService accountService)
         {
             _accountService = accountService;
@@ -29,8 +29,8 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return _accountService.GetAccountById(id);
         }
-        [Authorize(Policy = "RequiredAdminOrStaff")]
         [HttpGet("GetListAccount")]
+        [AllowAnonymous]
         public DynamicModelResponse.DynamicModelsResponse<AccountViewModel> GetListAccount(
             [FromQuery] AccountViewModel filter, [FromQuery] PagingRequest paging,
             [FromQuery] AccountOrderFilter orderFilter = AccountOrderFilter.AccountId)
@@ -70,6 +70,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
             return _accountService.DeleteAccountByEmail(email);
         }
 
-
+        [HttpGet("GetCustomerRequestType")]
+        public EnumViewModel GetCustomerRequestType() => _accountService.GetCustomerRequestType();
     }
 }

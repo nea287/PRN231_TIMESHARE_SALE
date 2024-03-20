@@ -18,6 +18,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         public ResponseResult<ReservationViewModel> CreateReservation(ReservationRequestModel request);
         public ResponseResult<ReservationViewModel> UpdateReservation(ReservationRequestModel request, int id);
         public ResponseResult<ReservationViewModel> DeleteReservation(int id);
+        public EnumViewModel GetReservationStatus();
 
     }
 }

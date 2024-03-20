@@ -6,6 +6,7 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Authorization;
+using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
@@ -51,5 +52,8 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return Ok(_service.DeleteContract(id));
         }
+
+        [HttpGet("GetConstractType")]
+        public EnumViewModel GetConstractType() => _service.GetConstractType();
     }
 }

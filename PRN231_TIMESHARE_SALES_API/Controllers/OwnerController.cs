@@ -54,5 +54,8 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return _ownerService.DeleteOwner(id);
         }
+
+        [HttpGet("GetOwnerStatus")]
+        public EnumViewModel GetOwnerStatus() => _ownerService.GetOwnerStatus();
     }
 }

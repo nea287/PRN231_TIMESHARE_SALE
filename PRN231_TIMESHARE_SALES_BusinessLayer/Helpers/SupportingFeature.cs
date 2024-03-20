@@ -12,6 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Newtonsoft.Json.Serialization;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 using System.Runtime.CompilerServices;
+using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Helpers
 {
@@ -108,25 +110,31 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Helpers
             }
         }
 
-        //public static IEnumerable<T> GetFilterByDate<T>(IEnumerable<T> source, DateTime? startDate, DateTime? endDate)
-        //{
-        //    if (startDate == null)
-        //    {
-        //        startDate = DateTime.Now.AddDays(1);
-        //    }
-        //    else if(endDate == null)
-        //    {
-        //        endDate = DateTime.Now.AddDays(1);
-        //    }else if(startDate > endDate)
-        //    {
-        //        DateTime date = startDate.Value;
-        //        startDate = endDate;
-        //        endDate = date;
-        //    }
 
-        //    return source.Where(x => x.);
-        //}
+        public string? GetDisplayNameForProperty(PropertyInfo property, string otherProperty)
+        {
+            IEnumerable<Attribute> attributes = CustomAttributeExtensions.GetCustomAttributes(property, true);
+            foreach (Attribute attribute in attributes)
+            {
+                if (attribute is DisplayAttribute display)
+                {
+                    return display.GetName();
+                }
+            }
 
+            return otherProperty;
+        }
 
+        public Dictionary<int, string> GetEnumName<TEnum>()
+        {
+            Dictionary<int, string> enumValues = new Dictionary<int, string>();
+
+            foreach (int e in Enum.GetValues(typeof(TEnum)))
+            {
+                enumValues.Add(e, Enum.GetName(typeof(TEnum), e));
+            }
+
+            return enumValues;  
+        }
     }
 }

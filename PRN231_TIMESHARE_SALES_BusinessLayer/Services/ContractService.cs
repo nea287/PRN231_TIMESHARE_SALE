@@ -69,7 +69,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         }
         #endregion
 
-
         #region Delete
         public ResponseResult<ContractViewModel> DeleteContract(int id)
         {
@@ -187,6 +186,14 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 Results = result.Item2.ToList()
             };
         }
+
+        #region ContractType
+        public EnumViewModel GetConstractType() => new EnumViewModel()
+        {
+            Message = Constraints.INFORMATION,
+            Results = SupportingFeature.Instance.GetEnumName<ContractType>() 
+        };
+        #endregion
 
         #endregion
 

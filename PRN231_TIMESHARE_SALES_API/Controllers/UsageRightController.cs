@@ -5,6 +5,7 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels.Helpers;
 using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using Microsoft.AspNetCore.Cors;
+using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 
 namespace PRN231_TIMESHARE_SALES_API.Controllers
 {
@@ -49,5 +50,8 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         {
             return Ok(_service.DeleteUsageRight(id));
         }
+
+        [HttpGet("GetUsageRightStatus")]
+        public EnumViewModel GetUsageRightStatus() => _service.GetUsageRightStatus();
     }
 }

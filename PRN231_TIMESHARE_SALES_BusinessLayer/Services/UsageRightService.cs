@@ -69,7 +69,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         }
         #endregion
 
-
         #region Delete
         public ResponseResult<UsageRightViewModel> DeleteUsageRight(int id)
         {
@@ -187,6 +186,15 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 Results = result.Item2.ToList()
             };
         }
+
+        #region GetUsageRightStatus
+        public EnumViewModel GetUsageRightStatus() => new EnumViewModel()
+        {
+            Message = Constraints.INFORMATION,
+            Results = SupportingFeature.Instance.GetEnumName<UsageRightStatus>()
+        };
+
+        #endregion
 
         #endregion
 
