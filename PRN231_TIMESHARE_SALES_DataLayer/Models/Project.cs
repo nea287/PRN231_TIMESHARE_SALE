@@ -7,7 +7,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
     {
         public Project()
         {
-            Departments = new HashSet<Department>();
+            DepartmentOfProjects = new HashSet<DepartmentOfProject>();
             StaffOfProjects = new HashSet<StaffOfProject>();
         }
 
@@ -22,7 +22,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public DateTime? RegistrationEndDate { get; set; }
         public DateTime? RegistrationOpeningDate { get; set; }
 
-        public virtual ICollection<Department> Departments { get; set; }
+        public virtual ICollection<DepartmentOfProject> DepartmentOfProjects { get; set; }
         public virtual ICollection<StaffOfProject> StaffOfProjects { get; set; }
     }
 }

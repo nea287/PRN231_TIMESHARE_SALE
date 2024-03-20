@@ -11,6 +11,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
             Facilities = new HashSet<FacilityViewModel>();
             Feedbacks = new HashSet<FeedbackViewModel>();
             UsageHistories = new HashSet<UsageHistoryViewModel>();
+            DepartmentOfProjects = new HashSet<DepartmentOfProjectViewModel>();
+
         }
 
         public int? DepartmentId { get; set; }
@@ -34,5 +36,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         public ICollection<FacilityViewModel>? Facilities { get; set; }
         public ICollection<FeedbackViewModel>? Feedbacks { get; set; }
         public ICollection<UsageHistoryViewModel>? UsageHistories { get; set; }
+        public virtual ICollection<DepartmentOfProjectViewModel>? DepartmentOfProjects { get; set; }
+
     }
 }

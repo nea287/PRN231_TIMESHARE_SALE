@@ -23,6 +23,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public virtual DbSet<CustomerRequest> CustomerRequests { get; set; } = null!;
         public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<Facility> Facilities { get; set; } = null!;
+        public virtual DbSet<DepartmentOfProject> DepartmentOfProjects { get; set; } = null!;
         public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
         public virtual DbSet<Owner> Owners { get; set; } = null!;
         public virtual DbSet<Project> Projects { get; set; } = null!;
@@ -185,11 +186,25 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                     .WithMany(p => p.Departments)
                     .HasForeignKey(d => d.OwnerId)
                     .HasConstraintName("FK_Department_Owner");
+            });
+
+            modelBuilder.Entity<DepartmentOfProject>(entity =>
+            {
+                entity.HasKey(e => new { e.DepartmentId, e.ProjectId });
+
+                entity.ToTable("DepartmentOfProject");
+
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.DepartmentOfProjects)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DepartmentOfProject_Department");
 
                 entity.HasOne(d => d.Project)
-                    .WithMany(p => p.Departments)
+                    .WithMany(p => p.DepartmentOfProjects)
                     .HasForeignKey(d => d.ProjectId)
-                    .HasConstraintName("FK_Department_Project");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DepartmentOfProject_Project");
             });
 
             modelBuilder.Entity<Facility>(entity =>

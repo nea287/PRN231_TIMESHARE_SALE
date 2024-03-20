@@ -16,7 +16,8 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             CreateMap<Project, ProjectViewModel>()
                 .ForMember(x => x.TotalRevenue, dest =>
                     dest.MapFrom(opt =>
-                          opt.Departments.SelectMany(x => x.AvailableTimes)
+                          opt.DepartmentOfProjects.Select(x => x.Department)
+                          .SelectMany(t => t.AvailableTimes)
                           .SelectMany(a => a.Contracts)
                           .Sum(t => t.ContractAmount)))
                 .ReverseMap();
@@ -107,6 +108,11 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             CreateMap<CustomerRequest, CustomerRequestViewModel>().ReverseMap();
             CreateMap<CustomerRequestViewModel, CustomerRequestRequestModel>().ReverseMap();
             #endregion
+
+            #region DepartmentOfProject
+            CreateMap<DepartmentOfProject, DepartmentOfProjectViewModel>().ReverseMap();
+            #endregion
+
 
         }
     }
