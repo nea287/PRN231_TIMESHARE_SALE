@@ -111,9 +111,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_departmentRepository)
                 {
-                    var data = _departmentRepository.GetAll(filter: x => x.Status != 0,
-                                                  includeProperties: String.Join(",",
-                                                  SupportingFeature.GetNameIncludedProperties<Department>()))
+                    var data = _departmentRepository.GetAll(filter: x => x.Status != 0)
                         .AsQueryable()
                         .ProjectTo<DepartmentViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(filter);

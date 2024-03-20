@@ -179,7 +179,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 
                 entity.Property(e => e.Country).HasMaxLength(50);
 
-                entity.Property(e => e.DepartmentName).HasMaxLength(150);
+                entity.Property(e => e.DepartmentName)
+                    .IsRequired()
+                    .HasMaxLength(150);
 
                 entity.Property(e => e.Description).HasMaxLength(255);
 

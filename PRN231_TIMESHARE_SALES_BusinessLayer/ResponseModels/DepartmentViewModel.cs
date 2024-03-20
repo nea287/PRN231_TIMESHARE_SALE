@@ -6,7 +6,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
     {
         public DepartmentViewModel()
         {
-            AvailableTimes = new HashSet<AvailableTimeViewModel>();
+            //AvailableTimes = new HashSet<AvailableTimeViewModel>();
             CustomerRequests = new HashSet<CustomerRequestViewModel>();
             Facilities = new HashSet<FacilityViewModel>();
             Feedbacks = new HashSet<FeedbackViewModel>();
@@ -30,7 +30,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         public int? Capacity { get; set; }
 
         public decimal? TotalRevenue { get; set; }
-        public ICollection<AvailableTimeViewModel>? AvailableTimes { get; set; }
         public ICollection<CustomerRequestViewModel>? CustomerRequests { get; set; }
         public ICollection<FacilityViewModel>? Facilities { get; set; }
         public ICollection<FeedbackViewModel>? Feedbacks { get; set; }
