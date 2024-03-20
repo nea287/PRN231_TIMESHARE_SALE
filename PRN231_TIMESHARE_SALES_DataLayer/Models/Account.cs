@@ -18,26 +18,26 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         }
 
         public int AccountId { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string FullName { get; set; }
-        public string Phone { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Country { get; set; }
-        public string Address { get; set; }
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? FullName { get; set; }
+        public string? Phone { get; set; }
+        public string? City { get; set; }
+        public string? State { get; set; }
+        public string? Country { get; set; }
+        public string? Address { get; set; }
         public int? Role { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public int? Status { get; set; }
 
-        public virtual ICollection<Contract> ContractCustomers { get; set; }
-        public virtual ICollection<Contract> ContractStaffs { get; set; }
-        public virtual ICollection<CustomerRequest> CustomerRequests { get; set; }
-        public virtual ICollection<Feedback> Feedbacks { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
-        public virtual ICollection<StaffOfProject> StaffOfProjects { get; set; }
-        public virtual ICollection<UsageHistory> UsageHistories { get; set; }
-        public virtual ICollection<UsageRight> UsageRights { get; set; }
+        public virtual ICollection<Contract>? ContractCustomers { get; set; }
+        public virtual ICollection<Contract>? ContractStaffs { get; set; }
+        public virtual ICollection<CustomerRequest>? CustomerRequests { get; set; }
+        public virtual ICollection<Feedback>? Feedbacks { get; set; }
+        public virtual ICollection<Reservation>? Reservations { get; set; }
+        public virtual ICollection<StaffOfProject>? StaffOfProjects { get; set; }
+        public virtual ICollection<UsageHistory>? UsageHistories { get; set; }
+        public virtual ICollection<UsageRight>? UsageRights { get; set; }
     }
 }

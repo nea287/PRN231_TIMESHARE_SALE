@@ -99,6 +99,7 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
                          opt.DepartmentOfProjects.SelectMany(t => t.AvailableTimes)
                                            .SelectMany(t => t.Contracts)
                                            .Sum(a => a.ContractAmount)))
+                .ForMember(x => x.DepartmentOfProjects, dest => dest.Ignore())
                 .ReverseMap();
             CreateMap<DepartmentRequestModel, Department>().ReverseMap();
             CreateMap<DepartmentViewModel, DepartmentRequestModel>().ReverseMap();

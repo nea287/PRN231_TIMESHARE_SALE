@@ -22,8 +22,8 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public int? NumberYears { get; set; }
         public int? NumberMonths { get; set; }
 
-        public virtual AvailableTime AvailableTime { get; set; }
-        public virtual Account Customer { get; set; }
-        public virtual Account Staff { get; set; }
+        public virtual AvailableTime? AvailableTime { get; set; }
+        public virtual Account? Customer { get; set; }
+        public virtual Account? Staff { get; set; }
     }
 }

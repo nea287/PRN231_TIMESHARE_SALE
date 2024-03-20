@@ -21,6 +21,6 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public virtual AvailableTime AvailableTime { get; set; }
        // [JsonIgnore]
         public virtual Account Customer { get; set; }
-        public virtual ICollection<UsageRight> UsageRights { get; set; }
+        public virtual ICollection<UsageRight>? UsageRights { get; set; }
     }
 }

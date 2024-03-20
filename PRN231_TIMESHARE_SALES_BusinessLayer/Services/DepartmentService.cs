@@ -41,6 +41,16 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                     _departmentRepository.Insert(data);
                     _departmentRepository.SaveChages();
 
+                    foreach (var e in request.DepartmentOfProjects)
+                    {
+                        data.DepartmentOfProjects.Add(new DepartmentOfProject()
+                        {
+                            DepartmentId = data.DepartmentId,
+                            DepartmentProjectCode = e.DepartmentProjectCode,
+                            ProjectId = e.ProjectId.Value,
+                        });
+                    }     
+
                     result = _mapper.Map<DepartmentViewModel>(data);
                 };
 

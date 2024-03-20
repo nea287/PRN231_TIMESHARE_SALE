@@ -12,9 +12,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         }
 
         public int ProjectId { get; set; }
-        public string ProjectName { get; set; }
+        public string? ProjectName { get; set; }
         public int? PriorityType { get; set; }
-        public string ProjectCode { get; set; }
+        public string? ProjectCode { get; set; }
         public int? TotalSlot { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
@@ -22,7 +22,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public DateTime? RegistrationEndDate { get; set; }
         public DateTime? RegistrationOpeningDate { get; set; }
 
-        public virtual ICollection<DepartmentOfProject> DepartmentOfProjects { get; set; }
-        public virtual ICollection<StaffOfProject> StaffOfProjects { get; set; }
+        public virtual ICollection<DepartmentOfProject>? DepartmentOfProjects { get; set; }
+        public virtual ICollection<StaffOfProject>? StaffOfProjects { get; set; }
     }
 }

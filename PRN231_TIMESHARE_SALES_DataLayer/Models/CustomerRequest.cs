@@ -14,8 +14,8 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public int? Status { get; set; }
         public int DepartmentId { get; set; }
         //[JsonIgnore]
-        public virtual Account Customer { get; set; }
+        public virtual Account? Customer { get; set; }
         //[JsonIgnore]
-        public virtual Department Department { get; set; }
+        public virtual Department? Department { get; set; }
     }
 }
