@@ -366,7 +366,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                     var data = _mapper.Map<AccountViewModel>(_accountRepository
                         .GetFirstOrDefault(x => x.Email.ToLower().Equals(email.ToLower())
                             && x.Password.Equals(password)
-                            && x.Status != 0));
+                            && x.Status != 0 && x.Status != 9));
 
                     if (data != null)
                     {
@@ -442,7 +442,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 {
                     if (_accountRepository.Any(x =>
                     x.Email.ToLower().Equals(request.Email.ToLower())
-                    && x.Status != 0))
+                    && x.Status != 0 && x.Status != 9))
                     {
                         return new ResponseResult<AccountViewModel>()
                         {
