@@ -126,7 +126,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Commons
         UNAVAILABLE,
         AVAILABLE,
         BUSY,
-        FREE,
         BOOKED,
         RESERVED,
         PENDING_APPROVAL,
