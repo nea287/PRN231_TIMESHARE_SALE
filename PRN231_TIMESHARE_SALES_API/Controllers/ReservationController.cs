@@ -37,6 +37,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         }
 
         [HttpPost("CreateReservation")]
+        [AllowAnonymous]
         public IActionResult CreateReservation([FromBody] ReservationRequestModel request)
         {
             return Ok(_service.CreateReservation(request));
@@ -49,6 +50,7 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         }
 
         [HttpDelete("DeleteReservation/{id}")]
+        [AllowAnonymous]
         public IActionResult DeleleReservation(int id)
         {
             return Ok(_service.DeleteReservation(id));  
