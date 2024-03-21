@@ -75,6 +75,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                 entity.Property(e => e.FirstName).HasMaxLength(50);
 
                 entity.Property(e => e.FullName).HasMaxLength(150);
+                entity.Property(e => e.Image).HasColumnType("text");
 
                 entity.Property(e => e.LastName).HasMaxLength(50);
 
@@ -153,6 +154,8 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                 entity.Property(e => e.Description)
                     .IsRequired()
                     .HasMaxLength(255);
+                entity.Property(e => e.Image).HasColumnType("text");
+
 
                 entity.Property(e => e.RequestDate).HasColumnType("datetime");
 
@@ -184,6 +187,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                     .HasMaxLength(150);
 
                 entity.Property(e => e.Description).HasMaxLength(255);
+                entity.Property(e => e.Image).HasColumnType("text");
 
                 entity.Property(e => e.Price).HasColumnType("money");
 
@@ -228,9 +232,13 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 
                 entity.Property(e => e.Description).HasMaxLength(255);
 
+
                 entity.Property(e => e.FacilityName)
                     .IsRequired()
                     .HasMaxLength(150);
+
+                entity.Property(e => e.Image).HasColumnType("text");
+
 
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Facilities)
@@ -245,6 +253,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                 entity.Property(e => e.Content).HasColumnType("text");
 
                 entity.Property(e => e.FeedbackDate).HasColumnType("datetime");
+                entity.Property(e => e.Image).HasColumnType("text");
 
                 entity.HasOne(d => d.Customer)
                     .WithMany(p => p.Feedbacks)

@@ -11,6 +11,8 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public double Rating { get; set; }
         public string? Content { get; set; }
         public DateTime FeedbackDate { get; set; }
+        public string? Image { get; set; }
+
         public int DepartmentId { get; set; }
         //[JsonIgnore]
         public virtual Account? Customer { get; set; }

@@ -27,9 +27,11 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public string? Country { get; set; }
         public string? Address { get; set; }
         public int? Role { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public string Email { get; set; } = null!;
+        public string Password { get; set; } = null!;
         public int? Status { get; set; }
+        public string? Image { get; set; }
+
 
         public virtual ICollection<Contract>? ContractCustomers { get; set; }
         public virtual ICollection<Contract>? ContractStaffs { get; set; }
