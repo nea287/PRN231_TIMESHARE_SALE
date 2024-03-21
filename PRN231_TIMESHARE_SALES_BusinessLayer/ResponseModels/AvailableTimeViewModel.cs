@@ -15,6 +15,8 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         public DateTime? EndDate { get; set; }
         public int? Status { get; set; }
         public string? DepartmentProjectCode { get; set; }
+        public int? DepartmentId { get; set; }
+        public string? DepartmentName { get; set; }
 
 
         public ICollection<ContractViewModel>? Contracts { get; set; }

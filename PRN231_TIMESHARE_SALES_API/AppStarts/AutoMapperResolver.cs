@@ -64,7 +64,10 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
 
             #region AvailableTime
             CreateMap<AvailableTime, AvailableTimeRequestModel>().ReverseMap();
-            CreateMap<AvailableTime, AvailableTimeViewModel>().ReverseMap();
+            CreateMap<AvailableTime, AvailableTimeViewModel>()
+                .ForMember(x => x.DepartmentId, dest => dest.MapFrom(opt => opt.DepartmentProjectCodeNavigation.Department.DepartmentId))
+                .ForMember(x => x.DepartmentName, dest => dest.MapFrom(opt => opt.DepartmentProjectCodeNavigation.Department.DepartmentName))
+                .ReverseMap();
             CreateMap<AvailableTimeViewModel, AvailableTimeRequestModel>();
             #endregion
 
