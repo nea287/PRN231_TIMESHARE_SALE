@@ -54,6 +54,8 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
 
             services.AddScoped<IDashboardService, DashboardService>();
 
+            services.AddScoped<INotificationService, NotificationService>();
+
         }
     }
 }
