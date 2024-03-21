@@ -15,10 +15,10 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
         public int? Status { get; set; }
-        public int? DepartmentId { get; set; }
+        public string? DepartmentProjectCode { get; set; }
 
-        public virtual Department Department { get; set; }
-        public virtual ICollection<Contract> Contracts { get; set; }
-        public virtual ICollection<Reservation> Reservations { get; set; }
+        public virtual DepartmentOfProject? DepartmentProjectCodeNavigation { get; set; }
+        public virtual ICollection<Contract>? Contracts { get; set; }
+        public virtual ICollection<Reservation>? Reservations { get; set; }
     }
 }

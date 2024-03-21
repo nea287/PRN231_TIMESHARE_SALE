@@ -7,16 +7,15 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
     {
         public Department()
         {
-            AvailableTimes = new HashSet<AvailableTime>();
             CustomerRequests = new HashSet<CustomerRequest>();
+            DepartmentOfProjects = new HashSet<DepartmentOfProject>();
             Facilities = new HashSet<Facility>();
             Feedbacks = new HashSet<Feedback>();
             UsageHistories = new HashSet<UsageHistory>();
         }
 
         public int DepartmentId { get; set; }
-        public string DepartmentName { get; set; } = null!;
-        public int? ProjectId { get; set; }
+        public string DepartmentName { get; set; }
         public int? OwnerId { get; set; }
         public string? Address { get; set; }
         public string? City { get; set; }
@@ -30,11 +29,10 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public int? Capacity { get; set; }
 
         public virtual Owner? Owner { get; set; }
-        public virtual Project? Project { get; set; }
-        public virtual ICollection<AvailableTime> AvailableTimes { get; set; }
-        public virtual ICollection<CustomerRequest> CustomerRequests { get; set; }
-        public virtual ICollection<Facility> Facilities { get; set; }
-        public virtual ICollection<Feedback> Feedbacks { get; set; }
-        public virtual ICollection<UsageHistory> UsageHistories { get; set; }
+        public virtual ICollection<CustomerRequest>? CustomerRequests { get; set; }
+        public virtual ICollection<DepartmentOfProject>? DepartmentOfProjects { get; set; }
+        public virtual ICollection<Facility>? Facilities { get; set; }
+        public virtual ICollection<Feedback>? Feedbacks { get; set; }
+        public virtual ICollection<UsageHistory>? UsageHistories { get; set; }
     }
 }

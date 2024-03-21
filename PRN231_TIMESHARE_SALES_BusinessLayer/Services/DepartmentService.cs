@@ -41,6 +41,16 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                     _departmentRepository.Insert(data);
                     _departmentRepository.SaveChages();
 
+                    foreach (var e in request.DepartmentOfProjects)
+                    {
+                        data.DepartmentOfProjects.Add(new DepartmentOfProject()
+                        {
+                            DepartmentId = data.DepartmentId,
+                            DepartmentProjectCode = e.DepartmentProjectCode,
+                            ProjectId = e.ProjectId.Value,
+                        });
+                    }     
+
                     result = _mapper.Map<DepartmentViewModel>(data);
                 };
 
@@ -111,9 +121,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
             {
                 lock (_departmentRepository)
                 {
-                    var data = _departmentRepository.GetAll(filter: x => x.Status != 0,
-                                                  includeProperties: String.Join(",",
-                                                  SupportingFeature.GetNameIncludedProperties<Department>()))
+                    var data = _departmentRepository.GetAll(filter: x => x.Status != 0)
                         .AsQueryable()
                         .ProjectTo<DepartmentViewModel>(_mapper.ConfigurationProvider)
                         .DynamicFilter(filter);

@@ -23,6 +23,7 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
         public virtual DbSet<CustomerRequest> CustomerRequests { get; set; } = null!;
         public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<Facility> Facilities { get; set; } = null!;
+        public virtual DbSet<DepartmentOfProject> DepartmentOfProjects { get; set; } = null!;
         public virtual DbSet<Feedback> Feedbacks { get; set; } = null!;
         public virtual DbSet<Owner> Owners { get; set; } = null!;
         public virtual DbSet<Project> Projects { get; set; } = null!;
@@ -92,14 +93,19 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
             {
                 entity.ToTable("AvailableTime");
 
+                entity.Property(e => e.DepartmentProjectCode)
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.EndDate).HasColumnType("datetime");
 
                 entity.Property(e => e.StartDate).HasColumnType("datetime");
 
-                entity.HasOne(d => d.Department)
+                entity.HasOne(d => d.DepartmentProjectCodeNavigation)
                     .WithMany(p => p.AvailableTimes)
-                    .HasForeignKey(d => d.DepartmentId)
-                    .HasConstraintName("FK_AvailableTime_Department");
+                    .HasPrincipalKey(p => p.DepartmentProjectCode)
+                    .HasForeignKey(d => d.DepartmentProjectCode)
+                    .HasConstraintName("FK_AvailableTime_DepartmentOfProject");
             });
 
             modelBuilder.Entity<Contract>(entity =>
@@ -173,7 +179,9 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
 
                 entity.Property(e => e.Country).HasMaxLength(50);
 
-                entity.Property(e => e.DepartmentName).HasMaxLength(150);
+                entity.Property(e => e.DepartmentName)
+                    .IsRequired()
+                    .HasMaxLength(150);
 
                 entity.Property(e => e.Description).HasMaxLength(255);
 
@@ -185,11 +193,33 @@ namespace PRN231_TIMESHARE_SALES_DataLayer.Models
                     .WithMany(p => p.Departments)
                     .HasForeignKey(d => d.OwnerId)
                     .HasConstraintName("FK_Department_Owner");
+            });
+
+            modelBuilder.Entity<DepartmentOfProject>(entity =>
+            {
+                entity.HasKey(e => new { e.DepartmentId, e.ProjectId });
+
+                entity.ToTable("DepartmentOfProject");
+
+                entity.HasIndex(e => e.DepartmentProjectCode, "DepartmentProjectCode")
+                    .IsUnique();
+
+                entity.Property(e => e.DepartmentProjectCode)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsUnicode(false);
+
+                entity.HasOne(d => d.Department)
+                    .WithMany(p => p.DepartmentOfProjects)
+                    .HasForeignKey(d => d.DepartmentId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DepartmentOfProject_Department");
 
                 entity.HasOne(d => d.Project)
-                    .WithMany(p => p.Departments)
+                    .WithMany(p => p.DepartmentOfProjects)
                     .HasForeignKey(d => d.ProjectId)
-                    .HasConstraintName("FK_Department_Project");
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_DepartmentOfProject_Project");
             });
 
             modelBuilder.Entity<Facility>(entity =>

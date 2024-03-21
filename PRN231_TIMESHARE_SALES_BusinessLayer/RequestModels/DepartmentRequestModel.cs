@@ -1,4 +1,5 @@
 ﻿using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
+using PRN231_TIMESHARE_SALES_DataLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -13,11 +14,12 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
 
         [Required(ErrorMessage = "Please enter department name!")]
         public string? DepartmentName { get; set; }
-        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Project Id is Invalid!")]
-        public int? ProjectId { get; set; }
+        //[RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Project Id is Invalid!")]
+        //public int? ProjectId { get; set; }
         [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Owner Id is Invalid!")]
         public int? OwnerId { get; set; }
         public string? Address { get; set; }
+        //public string? DepartmentProjectCode { get; set; }
         public string? City { get; set; }
         public string? State { get; set; }
         public string? Country { get; set; }
@@ -30,6 +32,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         public int? Status { get; set; }
         [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Capacity is Invalid!")]
         public int? Capacity { get; set; }
+        public ICollection<DepartmentOfProjectDepartmentRequestModel>? DepartmentOfProjects { get; set; }
 
         public ICollection<AvailableTimeViewModel>? AvailableTimes { get; set; }
         public ICollection<CustomerRequestViewModel>? CustomerRequests { get; set; }
