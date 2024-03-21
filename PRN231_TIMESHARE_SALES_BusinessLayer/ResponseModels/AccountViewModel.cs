@@ -38,6 +38,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels
         public int? Status { get; set; }
         public decimal? TotalRevenue { get; set; }
         public decimal? TotalCommission { get; set; }
+        public string? Image { get; set; }
         public ICollection<ContractViewModel>? ContractCustomers { get; set; }
         public ICollection<ContractViewModel>? ContractStaffs { get; set; }
         public ICollection<CustomerRequestViewModel>? CustomerRequests { get; set; }

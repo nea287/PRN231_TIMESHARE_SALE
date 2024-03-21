@@ -9,5 +9,7 @@
         public DateTime? RequestDate { get; set; }
         public int? Status { get; set; }
         public int? DepartmentId { get; set; }
+        public string? Image { get; set; }
+
     }
 }

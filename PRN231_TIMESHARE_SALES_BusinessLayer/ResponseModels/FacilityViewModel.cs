@@ -7,5 +7,6 @@
         public string? Description { get; set; }
         public int? FacilityType { get; set; }
         public int? DepartmentId { get; set; }
+        public string? Image { get; set; }
     }
 }

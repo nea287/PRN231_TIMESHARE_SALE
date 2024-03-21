@@ -8,5 +8,7 @@
         public string? Content { get; set; }
         public DateTime? FeedbackDate { get; set; }
         public int? DepartmentId { get; set; }
+        public string? Image { get; set; }
+
     }
 }
