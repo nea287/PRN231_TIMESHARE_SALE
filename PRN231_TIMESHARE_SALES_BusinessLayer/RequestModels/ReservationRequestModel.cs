@@ -15,7 +15,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         public int AvailableTimeId { get; set; }
         [DataType(DataType.DateTime)]
         public DateTime ReservationDate { get; set; }
-        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Reservation fee is Invalid!")]
+        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Reservation fee is Invalid!")]
         public decimal? ReservationFee { get; set; }
         public int? Status { get; set; }
     }
