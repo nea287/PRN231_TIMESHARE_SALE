@@ -1,7 +1,5 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
-using Microsoft.AspNetCore.Http;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Helpers;
