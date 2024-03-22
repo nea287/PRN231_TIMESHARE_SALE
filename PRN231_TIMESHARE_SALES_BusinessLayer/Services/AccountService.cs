@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Caching.Distributed;
 using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
@@ -11,14 +12,11 @@ using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using PRN231_TIMESHARE_SALES_DataLayer.Models;
 using PRN231_TIMESHARE_SALES_Repository.IRepository;
-using PRN231_TIMESHARE_SALES_Repository.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using static Org.BouncyCastle.Crypto.Engines.SM2Engine;
+using System.Net;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
 {
@@ -28,13 +26,15 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         private readonly ITokenService _token;
         private readonly IAccountRepository _accountRepository;
         private readonly IMapper _mapper;
+        private readonly IMemoryCache _memoryCache;
 
-        public AccountService(IMapper mapper, IAccountRepository accountRepository, ITokenService token, IDistributedCache cache)
+        public AccountService(IMapper mapper, IAccountRepository accountRepository, ITokenService token, IDistributedCache cache, IMemoryCache memoryCache)
         {
             _token = token;
             _accountRepository = accountRepository;
             _mapper = mapper;
             _cache = cache; 
+            _memoryCache = memoryCache; 
         }
         #region Create
         public ResponseResult<AccountViewModel> CreateAccount(AccountRequestModel request)
@@ -414,7 +414,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 string code = SupportingFeature.Instance.GenerateCode();
                 SupportingFeature.Instance.SendEmail(receiverMail, code, "Mã xác thực");
 
-                SetCache(code, "verification-code", 5);
+                SetDataMemory(code, "verification-code", 5);
 
             }
             catch (Exception ex)
@@ -428,7 +428,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
         {
             AccountViewModel result = new AccountViewModel();
 
-            if (verificationCode != GetCache("verification-code"))
+            if (verificationCode != GetDataFromMemory("verification-code"))
             {
                 return new ResponseResult<AccountViewModel>()
                 {
@@ -475,6 +475,19 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 result = true,
                 Value = result
             };
+        }
+        #endregion
+
+
+        #region Cookie
+        public void SetDataMemory(string value, string nameValue, int minutes)
+        {
+            _memoryCache.Set(nameValue, value, new TimeSpan(0, minutes, 0));
+        }
+
+        public string GetDataFromMemory(string nameValue)
+        {
+            return string.Concat(_memoryCache.Get(nameValue));
         }
         #endregion
 

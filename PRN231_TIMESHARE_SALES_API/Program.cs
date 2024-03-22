@@ -130,7 +130,11 @@ builder.Services.AddStackExchangeRedisCache(options =>
 {
     options.Configuration = builder.Configuration["RedisCacheUrl"];
 });
-#endregion 
+#endregion
+
+#region Memory Cache
+builder.Services.AddMemoryCache();
+#endregion
 var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
