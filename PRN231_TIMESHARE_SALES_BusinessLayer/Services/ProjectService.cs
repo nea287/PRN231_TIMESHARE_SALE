@@ -174,6 +174,15 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
 
         #endregion
 
+        #region ProjectStatus 
+        public EnumViewModel GetProjectStatus() =>
+            new EnumViewModel()
+            {
+                Message = Constraints.INFORMATION,
+                Results = SupportingFeature.Instance.GetEnumName<ProjectStatus>()
+            };
+        #endregion
+
         #endregion
 
         #region Update

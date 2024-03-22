@@ -58,5 +58,9 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         [HttpGet("GetPriorityTypeProject")]
         public EnumViewModel GetPriorityTypeProject() 
             => _projectService.GetPriorityTypeProject();
+
+        [HttpGet("GetProjectStatus")]
+        public EnumViewModel GetProjectStatus()
+            => _projectService.GetProjectStatus();
     }
 }
