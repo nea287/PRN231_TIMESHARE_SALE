@@ -72,5 +72,11 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
 
         [HttpGet("GetCustomerRequestType")]
         public EnumViewModel GetCustomerRequestType() => _accountService.GetCustomerRequestType();
+
+        [HttpPut("ActiveAccount/{email}")]
+        public bool ActiveAccount(string email)
+        {
+            return _accountService.ActiveAccount(email);
+        }
     }
 }

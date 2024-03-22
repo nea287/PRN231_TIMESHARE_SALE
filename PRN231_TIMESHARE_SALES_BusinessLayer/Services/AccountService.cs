@@ -352,6 +352,26 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
                 Value = result
             };
         }
+
+        public bool ActiveAccount(string email)
+        {
+            try
+            {
+                var account = _accountRepository.GetFirstOrDefault(x => x.Email.Equals(email));
+
+                account.Status = (int)AccountStatus.ACTIVE;
+
+                _accountRepository.UpdateById(account, account.AccountId);
+                _accountRepository.SaveChages();
+
+                SupportingFeature.Instance.SendEmail(email, "Chúc mừng bạn, tài khoản: " + email + " đã được kích hoạt!", "Tài khoản được kích hoạt!");
+            }catch(Exception ex)
+            {
+                return false;
+            }
+
+            return true;
+        }
         #endregion
 
         #region Authenticate

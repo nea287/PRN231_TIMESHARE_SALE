@@ -25,5 +25,6 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         public bool SendVerificationCode(string receiverMail);
         public ResponseResult<AccountViewModel> Register(AccountRequestModel request, string verificationCode);
         public EnumViewModel GetCustomerRequestType();
+        public bool ActiveAccount(string email);
     }
 }
