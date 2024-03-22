@@ -25,12 +25,12 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         public string? Country { get; set; }
         [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Floors is Invalid!")]
         public int? Floors { get; set; }
-        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Price is Invalid!")]
+        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Price is Invalid!")]
         public decimal? Price { get; set; }
         public int? ConstructionType { get; set; }
         public string? Description { get; set; }
         public int? Status { get; set; }
-        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Capacity is Invalid!")]
+        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Capacity is Invalid!")]
         public int? Capacity { get; set; }
         public ICollection<DepartmentOfProjectDepartmentRequestModel>? DepartmentOfProjects { get; set; }
 
