@@ -25,12 +25,14 @@ namespace PRN231_TIMESHARE_SALES_API.Controllers
         }
 
         [HttpGet("GetReservation/{id}")]
+        [AllowAnonymous]
         public IActionResult GetReservation(int id)
         {
             return Ok(_service.GetReservation(id)); 
         }
 
         [HttpGet("GetListReservation")]
+        [AllowAnonymous]
         public IActionResult GetListReservation([FromQuery] ReservationViewModel filter, [FromQuery] PagingRequest paging)
         {
             return Ok(_service.GetReservations(paging, filter));
