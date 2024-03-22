@@ -30,7 +30,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels
         public int? ConstructionType { get; set; }
         public string? Description { get; set; }
         public int? Status { get; set; }
-        [RegularExpression(@"^(?=.*[0-9])\d+$", ErrorMessage = "Capacity is Invalid!")]
+        [RegularExpression(@"^\d+(\.\d+)?$", ErrorMessage = "Capacity is Invalid!")]
         public int? Capacity { get; set; }
         public ICollection<DepartmentOfProjectDepartmentRequestModel>? DepartmentOfProjects { get; set; }
 
