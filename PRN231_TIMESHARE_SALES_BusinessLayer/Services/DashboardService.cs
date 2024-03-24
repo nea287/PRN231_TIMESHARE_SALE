@@ -180,5 +180,103 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.Services
 
         #endregion
 
+        #region Dashboard by DepartmentType
+        public DashboardResponse<string> GetRevenueContructionTypeName(DepartmentConstructionType? request = null)
+        {
+            Dictionary<string, decimal> result = new Dictionary<string, decimal>();
+            try
+            {
+                if (request != null)
+                {
+                    result.Add(Enum.GetName(typeof(DepartmentConstructionType), request.Value),
+                              _contractRepository
+                                      .GetAll(contract => 
+                                        contract.AvailableTime.DepartmentProjectCodeNavigation.Department.ConstructionType == (int)request.Value)
+                                      
+                                      .Sum(x => x.ContractAmount.Value));
+                }
+                else
+                {
+
+                    var lst = _contractRepository.GetAll()
+                                                 .GroupBy(contract => contract.AvailableTime.DepartmentProjectCodeNavigation.Department.ConstructionType)
+                                                         .Select(group => new
+                                                         {
+                                                             ContructionType = group.Key,
+                                                             TotalAmount = group.Sum(contract => contract.ContractAmount.Value)
+                                                         });
+                    foreach (var e in lst)
+                    {
+                        result.Add(Enum.GetName(typeof(DepartmentConstructionType), e.ContructionType), e.TotalAmount);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return new DashboardResponse<string>()
+                {
+                    Message = Constraints.LOAD_FAILED,
+                    Values = result
+                };
+            }
+
+            return new DashboardResponse<string>()
+            {
+                Message = Constraints.INFORMATION,
+                Values = result
+            };
+        }
+        #endregion
+
+        #region Dashboard by project Name
+        public DashboardResponse<string> GetRevenueProjectName(string? projectName = null)
+        {
+            Dictionary<string, decimal> result = new Dictionary<string, decimal>();
+            try
+            {
+                if (projectName != null)
+                {
+                    result.Add(projectName,
+                              _contractRepository
+                                      .GetAll(contract =>
+                                        contract.AvailableTime.DepartmentProjectCodeNavigation.Project.ProjectName.Contains(projectName))
+
+                                      .Sum(x => x.ContractAmount.Value));
+                }
+                else
+                {
+
+                    var lst = _contractRepository.GetAll()
+                                                 .GroupBy(contract => contract.AvailableTime.DepartmentProjectCodeNavigation.Project.ProjectName)
+                                                         .Select(group => new
+                                                         {
+                                                             ProjectName = group.Key,
+                                                             TotalAmount = group.Sum(contract => contract.ContractAmount.Value)
+                                                         });
+                    foreach (var e in lst)
+                    {
+                        result.Add(e.ProjectName, e.TotalAmount);
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                return new DashboardResponse<string>()
+                {
+                    Message = Constraints.LOAD_FAILED,
+                    Values = result
+                };
+            }
+
+            return new DashboardResponse<string>()
+            {
+                Message = Constraints.INFORMATION,
+                Values = result
+            };
+        }
+        #endregion
+
     }
 }

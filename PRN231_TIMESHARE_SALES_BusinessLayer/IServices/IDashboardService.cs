@@ -1,4 +1,5 @@
-﻿using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
+﻿using PRN231_TIMESHARE_SALES_BusinessLayer.Commons;
+using PRN231_TIMESHARE_SALES_BusinessLayer.RequestModels;
 using PRN231_TIMESHARE_SALES_BusinessLayer.ResponseModels.Helpers;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace PRN231_TIMESHARE_SALES_BusinessLayer.IServices
         public Task<DashboardResponse<int>> GetDashboardByMonth(MonthRequestModel request);
         public Task<DashboardResponse<DateTime>> GetDashboardByDate(DateRequestModel request);
         public Task<DashboardResponse<int>> GetDashboardByYear(YearRequestModel request);
+        public DashboardResponse<string> GetRevenueContructionTypeName(DepartmentConstructionType? request = null);
+        public DashboardResponse<string> GetRevenueProjectName(string? projectName = null);
     }
 }

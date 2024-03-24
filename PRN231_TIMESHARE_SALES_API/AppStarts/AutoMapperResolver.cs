@@ -45,7 +45,10 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
 
             #region StaffOfProject
             CreateMap<StaffOfProject, StaffOfProjectRequestModel>().ReverseMap();
-            CreateMap<StaffOfProject, StaffOfProjectsViewModel>().ReverseMap();
+            CreateMap<StaffOfProject, StaffOfProjectsViewModel>()
+                .ForMember(x => x.StaffName, dest => dest.MapFrom(opt => opt.Staff.FullName))
+                .ForMember(x => x.ProjectName, dest => dest.MapFrom(opt => opt.Project.ProjectName))
+                .ReverseMap();
             CreateMap<StaffOfProjectRequestModel, StaffOfProjectsViewModel>().ReverseMap();
 
             #endregion
@@ -72,7 +75,13 @@ namespace PRN231_TIMESHARE_SALES_API.AppStarts
             #endregion
 
             #region Contract
-            CreateMap<Contract, ContractViewModel>().ReverseMap();
+            CreateMap<Contract, ContractViewModel>()
+                .ForMember(x => x.DepartmentContructionType, 
+                    dest => dest.MapFrom(opt => opt.AvailableTime.DepartmentProjectCodeNavigation.Department.ConstructionType))
+                .ForMember(x => x.ProjectName, dest => dest.MapFrom(
+                     opt => opt.AvailableTime.DepartmentProjectCodeNavigation.Project.ProjectName))
+                .ForMember(x => x.DepartmentContructionTypeName, dest => dest.Ignore())
+                .ReverseMap();
             CreateMap<Contract, ContractRequestModel>().ReverseMap();
             CreateMap<ContractViewModel, ContractRequestModel>().ReverseMap();
             #endregion
